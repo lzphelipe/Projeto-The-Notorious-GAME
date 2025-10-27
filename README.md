@@ -12,7 +12,7 @@ Este projeto é um sistema web para gerenciamento de uma loja de jogos, permitin
 
 \* \*\*Backend:\*\* Java 17 e Spring Boot 3
 
-\* \*\*Frontend:\*\* Thymeleaf
+\* \*\*Frontend:\*\* React
 
 \* \*\*Banco de Dados:\*\* PostgreSQL 18
 
