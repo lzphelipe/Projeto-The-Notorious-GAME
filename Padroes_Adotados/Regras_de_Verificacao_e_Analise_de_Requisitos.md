@@ -1,6 +1,6 @@
 # Regras de Verificação e Análise de Requisitos
 
-Este documento define os critérios e padrões adotados pela equipe para a verificação e análise dos requisitos do projeto **Loja de Jogos GAMEZONE**, conforme solicitado na disciplina de Engenharia de Software (GCC188).
+Este documento define os critérios e padrões adotados pela equipe para a verificação e análise dos requisitos do projeto **The Notorious GAME**, conforme solicitado na disciplina de Engenharia de Software (GCC188).
 
 ---
 
