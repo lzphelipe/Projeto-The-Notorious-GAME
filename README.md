@@ -1,4 +1,4 @@
-\# Projeto Final - Loja de Jogos GAMEZONE
+\# **The Notorious GAME**
 
 
 
@@ -6,19 +6,17 @@ Este projeto é um sistema web para gerenciamento de uma loja de jogos, permitin
 
 
 
-\## TECNOLOGIAS UTILIZADAS
+\## **TECNOLOGIAS UTILIZADAS**
 
 
 
-\* \*\*Backend:\*\* Java 17 e Spring Boot 3
+\* **Backend:** Java 17 e Spring Boot 3.5
 
-\* \*\*Frontend:\*\* React
+\* **Frontend:** React 19.1
 
-\* \*\*Banco de Dados:\*\* PostgreSQL 18
+\* **Banco de Dados:** PostgreSQL 18
 
-\* \*\*IDE:\*\* IntelliJ
+\* **IDE:** IntelliJ
 
-\* \*\*Gerenciador de Dependências:\*\* Maven
-
-\* \*\*Servidor de Desenvolvimento:\*\* Apache Tomcat
+\* **Gerenciador de Dependências:** Maven
 
