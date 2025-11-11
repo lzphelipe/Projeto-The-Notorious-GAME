@@ -4,12 +4,16 @@
 > Permite o **cadastro de jogos e gerenciamento de vendas** de forma simples e eficiente.
 
 ---
+## 👥 *Equipe*
 
-👥 Autores
+| 👤 Nome | 💼 Função |
+|:----------------------------:|:----------------------------:|
+| Guilherme Maia | Desenvolvedor Full Stack |
+| Luiz Phelipe Almeida | Desenvolvedor Full Stack |
+| Luiz Francisco de Jesús | Desenvolvedor Full Stack |
 
-👤 Guilherme Maia                    👤 Luiz Phelipe Almeida              👤Luiz Francisco de Jesús
-💼 Desenvolvedor Full Stack          💼 Desenvolvedor Full Stack          💼 Desenvolvedor Full Stack
 
+---
 
 ## 🚀 **Tecnologias Utilizadas**
 
