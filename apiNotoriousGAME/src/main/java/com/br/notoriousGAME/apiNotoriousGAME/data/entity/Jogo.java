@@ -23,9 +23,6 @@ public class Jogo {
     private String nomeJogo;
 
     @Column(name = "genero", nullable = false, length = 50)
-    private String generoJogo;
-
-    @Column(name = "desenvolvedora", nullable = false, length = 50)
     private String desenvolvedoraJogo;
 
     @Column(name = "preco", nullable = false)
@@ -34,7 +31,6 @@ public class Jogo {
     @Builder
     public Jogo(JogoRequestDTO jogoRequestDTO) {
         this.nomeJogo = jogoRequestDTO.nomeJogo();
-        this.generoJogo = jogoRequestDTO.generoJogo();
         this.desenvolvedoraJogo = jogoRequestDTO.desenvolvedoraJogo();
         this.precoJogo = jogoRequestDTO.precoJogo();
     }
