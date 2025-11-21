@@ -19,10 +19,14 @@ public class Jogo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJogo;
 
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nomeJogo;
 
-    @Column(name = "genero", nullable = false, length = 50)
+    @ManyToOne
+    @JoinColumn(name = "idCategoria")
+    private Categoria categoria;
+
+    @Column(name = "desenvolvedora", nullable = false, length = 100)
     private String desenvolvedoraJogo;
 
     @Column(name = "preco", nullable = false)

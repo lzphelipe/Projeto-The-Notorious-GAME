@@ -24,7 +24,7 @@ public class JogoController {
     }
 
     @GetMapping(value = "/{idJogo}")
-        public ResponseEntity<JogoResponseDTO> listarJogoPorId(@PathVariable Long idJogo){
+    public ResponseEntity<JogoResponseDTO> listarJogoPorId(@PathVariable Long idJogo){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.listarJogoPorId(idJogo));
     }
 
@@ -34,7 +34,7 @@ public class JogoController {
     }
 
     @DeleteMapping(value = "/delete/{idJogo}")
-    public ResponseEntity<String> excluirJogo(@PathVariable Long idJogo){
+    public ResponseEntity<String> deletarJogo(@PathVariable Long idJogo){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.deletarJogo(idJogo));
     }
 
