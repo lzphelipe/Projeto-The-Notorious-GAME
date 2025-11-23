@@ -10,8 +10,8 @@ public record JogoRequestDTO(
         @NotBlank(message = "O nome do jogo é obrigatório.")
         String nomeJogo,
 
-        @NotNull
-        Long idCategoria,
+        @NotBlank(message = "A categoria é obrigatória.")
+        String nomeCategoria,
 
         @NotBlank(message = "o nome da desenvolvedora é obrigatório.")
         String desenvolvedoraJogo,

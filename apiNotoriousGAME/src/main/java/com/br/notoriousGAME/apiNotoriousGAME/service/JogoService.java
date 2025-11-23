@@ -32,7 +32,8 @@ public class JogoService {
     }
 
     public JogoResponseDTO criarJogo(JogoRequestDTO jogoRequestDTO) {
-        Categoria categoria = categoriaRepository.findById(jogoRequestDTO.idCategoria()).orElseThrow(()-> new RuntimeException("Não foi possivel encontrar nenhuma categoria com o ID: " + jogoRequestDTO.idCategoria()));
+        Categoria categoria = categoriaRepository.findByNomeCategoriaIgnoreCase(jogoRequestDTO.nomeCategoria())
+                .orElseThrow(()-> new RuntimeException("Erro: A categoria '" + jogoRequestDTO.nomeCategoria() + "' não foi encontrada! Cadastre-a primeiro no menu Categorias."));
         Jogo jogo = new Jogo(jogoRequestDTO);
         jogo.setCategoria(categoria);
         jogoRepository.save(jogo);
@@ -45,7 +46,8 @@ public class JogoService {
         jogo.setDesenvolvedoraJogo(jogoRequestDTO.desenvolvedoraJogo());
         jogo.setPrecoJogo(jogoRequestDTO.precoJogo());
 
-        Categoria novaCategoria = categoriaRepository.findById(jogoRequestDTO.idCategoria()).orElseThrow(()-> new RuntimeException("Não foi possivel encontrar nenhuma categoria com o ID: " + jogoRequestDTO.idCategoria()));
+        Categoria novaCategoria = categoriaRepository.findByNomeCategoriaIgnoreCase(jogoRequestDTO.nomeCategoria())
+                .orElseThrow(()-> new RuntimeException("Erro: A categoria '" + jogoRequestDTO.nomeCategoria() + "' não foi encontrada! Cadastre-a primeiro no menu Categorias."));
         jogo.setCategoria(novaCategoria);
         jogoRepository.save(jogo);
         return new JogoResponseDTO(jogo);

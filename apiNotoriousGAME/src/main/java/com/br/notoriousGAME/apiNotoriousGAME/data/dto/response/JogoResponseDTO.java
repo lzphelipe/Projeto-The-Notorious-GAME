@@ -1,6 +1,5 @@
 package com.br.notoriousGAME.apiNotoriousGAME.data.dto.response;
 
-import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Categoria;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Jogo;
 
 import java.math.BigDecimal;
