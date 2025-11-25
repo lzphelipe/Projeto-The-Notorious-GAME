@@ -3,6 +3,8 @@ package com.br.notoriousGAME.apiNotoriousGAME.service;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.CategoriaRequestDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.CategoriaResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Categoria;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.CategoriaAlreadyExistsException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.CategoriaNotFoundException;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,15 @@ public class CategoriaService {
         return new CategoriaResponseDTO(categoria);
     }
 
+    public CategoriaResponseDTO criarCategoria(CategoriaRequestDTO categoriaRequestDTO) {
+        if (categoriaRepository.findByNomeCategoriaIgnoreCase(categoriaRequestDTO.nomeCategoria()).isPresent()) {
+            throw new CategoriaAlreadyExistsException("Erro: A categoria '" + categoriaRequestDTO.nomeCategoria() + "' já existe!");
+        }
+        Categoria categoria = new Categoria(categoriaRequestDTO);
+        categoriaRepository.save(categoria);
+        return new CategoriaResponseDTO(categoria);
+    }
+
     public CategoriaResponseDTO atualizarCategoria(Long idCategoria, CategoriaRequestDTO categoriaRequestDTO) {
         Categoria categoria = getCategoriaEntityById(idCategoria);
         categoria.setNomeCategoria(categoriaRequestDTO.nomeCategoria());
@@ -40,13 +51,8 @@ public class CategoriaService {
         return "Categoria deletada com sucesso!";
     }
 
-    public CategoriaResponseDTO criarCategoria(CategoriaRequestDTO categoriaRequestDTO) {
-        Categoria categoria = new Categoria(categoriaRequestDTO);
-        categoriaRepository.save(categoria);
-        return new CategoriaResponseDTO(categoria);
-    }
-
     private Categoria getCategoriaEntityById(Long idCategoria) {
-        return categoriaRepository.findById(idCategoria).orElseThrow(()-> new RuntimeException("Não foi possivel encontrar nenhuma categoria com o ID: " + idCategoria));
+        return categoriaRepository.findById(idCategoria)
+                .orElseThrow(()-> new CategoriaNotFoundException(idCategoria));
     }
 }

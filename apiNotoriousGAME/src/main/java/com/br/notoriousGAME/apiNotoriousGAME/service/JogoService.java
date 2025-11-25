@@ -4,6 +4,9 @@ import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.JogoRequestDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.JogoResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Categoria;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Jogo;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.CategoriaAlreadyExistsException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.JogoAlreadyExistsException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.JogoNotFoundException;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.CategoriaRepository;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.JogoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +35,12 @@ public class JogoService {
     }
 
     public JogoResponseDTO criarJogo(JogoRequestDTO jogoRequestDTO) {
+        if (jogoRepository.findByNomeJogoIgnoreCase(jogoRequestDTO.nomeJogo()).isPresent()) {
+            throw new JogoAlreadyExistsException("Erro: O jogo '" + jogoRequestDTO.nomeJogo() + "' já existe!");
+        }
         Categoria categoria = categoriaRepository.findByNomeCategoriaIgnoreCase(jogoRequestDTO.nomeCategoria())
-                .orElseThrow(()-> new RuntimeException("Erro: A categoria '" + jogoRequestDTO.nomeCategoria() + "' não foi encontrada! Cadastre-a primeiro no menu Categorias."));
+                .orElseThrow(()-> new CategoriaAlreadyExistsException("Erro: A categoria '" + jogoRequestDTO.nomeCategoria()
+                                + "' não foi encontrada! Cadastre-a primeiro no menu Categorias."));
         Jogo jogo = new Jogo(jogoRequestDTO);
         jogo.setCategoria(categoria);
         jogoRepository.save(jogo);
@@ -60,6 +67,7 @@ public class JogoService {
     }
 
     private Jogo getJogoEntityById(Long idJogo) {
-        return jogoRepository.findById(idJogo).orElseThrow(()-> new RuntimeException("Não foi possivel achar um jogo com o ID: " + idJogo));
+        return jogoRepository.findById(idJogo)
+                .orElseThrow(()-> new JogoNotFoundException(idJogo));
     }
 }

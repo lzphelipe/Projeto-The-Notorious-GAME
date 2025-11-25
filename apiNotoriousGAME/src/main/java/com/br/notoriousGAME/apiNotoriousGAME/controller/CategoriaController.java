@@ -28,6 +28,11 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarCategoriaPorId(idCategoria));
     }
 
+    @PostMapping(value = "/create")
+    public ResponseEntity<CategoriaResponseDTO> criarCategoria(@RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.criarCategoria(categoriaRequestDTO));
+    }
+
     @PutMapping(value = "/update/{idCategoria}")
     public ResponseEntity<CategoriaResponseDTO> atualizarCategoria(@PathVariable Long idCategoria, @RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.atualizarCategoria(idCategoria, categoriaRequestDTO));
@@ -36,10 +41,5 @@ public class CategoriaController {
     @DeleteMapping(value = "/delete/{idCategoria}")
     public ResponseEntity<String> deletarCategoria(@PathVariable Long idCategoria) {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.deletarCategoria(idCategoria));
-    }
-
-    @PostMapping(value = "/create")
-    public ResponseEntity<CategoriaResponseDTO> criarCategoria(@RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
-        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.criarCategoria(categoriaRequestDTO));
     }
 }

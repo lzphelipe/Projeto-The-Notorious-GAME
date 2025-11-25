@@ -19,7 +19,7 @@ public class Jogo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idJogo;
 
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(name = "nome", nullable = false, length = 100, unique = true)
     private String nomeJogo;
 
     @ManyToOne

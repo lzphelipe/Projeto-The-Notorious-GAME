@@ -28,6 +28,11 @@ public class JogoController {
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.listarJogoPorId(idJogo));
     }
 
+    @PostMapping(value = "/create")
+    public ResponseEntity<JogoResponseDTO> criarJogo(@RequestBody @Valid JogoRequestDTO jogoRequestDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(jogoService.criarJogo(jogoRequestDTO));
+    }
+
     @PutMapping(value = "/update/{idJogo}")
     public ResponseEntity<JogoResponseDTO> atualizarJogo(@PathVariable Long idJogo, @RequestBody @Valid JogoRequestDTO jogoRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.atualizarJogo(idJogo, jogoRequestDTO));
@@ -36,10 +41,5 @@ public class JogoController {
     @DeleteMapping(value = "/delete/{idJogo}")
     public ResponseEntity<String> deletarJogo(@PathVariable Long idJogo){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.deletarJogo(idJogo));
-    }
-
-    @PostMapping(value = "/create")
-    public ResponseEntity<JogoResponseDTO> criarJogo(@RequestBody @Valid JogoRequestDTO jogoRequestDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(jogoService.criarJogo(jogoRequestDTO));
     }
 }
