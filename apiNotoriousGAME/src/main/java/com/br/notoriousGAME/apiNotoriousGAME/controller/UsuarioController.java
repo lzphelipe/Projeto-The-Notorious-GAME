@@ -20,12 +20,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping(value = "/login")
-    public ResponseEntity<UsuarioResponseDTO> loginUsuario(@RequestBody @Valid LoginRequestDTO loginRequestDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.logarUsuario(loginRequestDTO.email(), loginRequestDTO.senha()));
-    }
-
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listarTodosUsuarios(){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarTodosUsuarios());
     }
@@ -35,17 +30,17 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.listarUsuarioPorId(idUsuario));
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping
     public ResponseEntity<UsuarioResponseDTO> criarUsuario(@RequestBody @Valid UsuarioRequestDTO usuarioRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.criarUsuario(usuarioRequestDTO));
     }
 
-    @PutMapping(value = "/update/{idUsuario}")
+    @PutMapping(value = "/{idUsuario}")
     public ResponseEntity<UsuarioResponseDTO> atualizarUsuario(@PathVariable Long idUsuario, @RequestBody @Valid UsuarioAtualizarDTO dadosUsuario){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.atualizarUsuario(idUsuario, dadosUsuario));
     }
 
-    @DeleteMapping(value = "/delete/{idUsuario}")
+    @DeleteMapping(value = "/{idUsuario}")
     public ResponseEntity<String> deletarUsuario(@PathVariable Long idUsuario){
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.deletarUsuario(idUsuario));
     }

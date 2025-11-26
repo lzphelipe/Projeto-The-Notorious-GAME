@@ -5,6 +5,9 @@ import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.UsuarioRequestDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.UsuarioResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Perfil;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Usuario;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.CPFAlreadyExistsException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.EmailAlreadyExistsException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.UsuarioNotFoundException;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,20 +20,6 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    public UsuarioResponseDTO logarUsuario(String email, String senha){
-        // Busca pelo email
-        Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(()-> new RuntimeException("Email não encontrado!"));
-
-        // Verifica a senha
-        if (usuario.getSenha().equals(senha)){
-            throw new RuntimeException("Senha incorreta!");
-        }
-
-        // Se passou, retorna os dados (O Front vai ler o Perfil aqui!)
-        return new UsuarioResponseDTO(usuario);
-    }
 
     public List<UsuarioResponseDTO> listarTodosUsuarios(){
         return usuarioRepository.findAll().stream()
@@ -46,10 +35,10 @@ public class UsuarioService {
     public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO dadosUsuario){
         // Verificar se email ou CPF já existem
         if (usuarioRepository.findByEmail(dadosUsuario.email()).isPresent()){
-            throw new RuntimeException("Este e-mail já está cadastrado!");
+            throw new EmailAlreadyExistsException("Este e-mail já está cadastrado!");
         }
         if (usuarioRepository.findByCpf(dadosUsuario.cpf()).isPresent()){
-            throw new RuntimeException("Este CPF já está cadastrado!");
+            throw new CPFAlreadyExistsException("Este CPF já está cadastrado!");
         }
 
         // Monta o Usuário
@@ -76,7 +65,7 @@ public class UsuarioService {
         }
         if (dadosUsuario.email() != null && !dadosUsuario.email().equals(usuario.getEmail()));{
             if (usuarioRepository.findByEmail(dadosUsuario.email()).isPresent()){
-                throw new RuntimeException("Este e-mail já está sendo usado por outro usuário!");
+                throw new EmailAlreadyExistsException("Este e-mail já está sendo usado por outro usuário!");
             }
             usuario.setEmail(dadosUsuario.email());
         }
@@ -84,7 +73,7 @@ public class UsuarioService {
         // 2. Atualiza CPF (Admin pode corrigir erro de digitação)
         if (dadosUsuario.cpf() != null && !dadosUsuario.cpf().equals(usuario.getCpf())){
             if (usuarioRepository.findByCpf(dadosUsuario.cpf()).isPresent()){
-                throw new RuntimeException("Este CPF já está sendo usado por outro usuário!");
+                throw new CPFAlreadyExistsException("Este CPF já está sendo usado por outro usuário!");
             }
             usuario.setCpf(dadosUsuario.cpf());
         }
@@ -106,6 +95,6 @@ public class UsuarioService {
 
     public Usuario getUsuarioEntityById(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Usuário com o ID" + id + "não encontrado"));
+                .orElseThrow(()-> new UsuarioNotFoundException(id));
     }
 }

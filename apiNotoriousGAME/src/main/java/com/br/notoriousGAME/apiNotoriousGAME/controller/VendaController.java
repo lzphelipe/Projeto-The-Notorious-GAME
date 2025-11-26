@@ -19,7 +19,7 @@ public class VendaController {
     @Autowired
     private VendaService vendaService;
 
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<VendaResponseDTO>> listarTodasVendas() {
         return ResponseEntity.status(HttpStatus.OK).body(vendaService.listarTodasVendas());
     }
@@ -29,17 +29,17 @@ public class VendaController {
         return ResponseEntity.status(HttpStatus.OK).body(vendaService.listarVendaPorId(idVenda));
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping
     public ResponseEntity<VendaResponseDTO> criarVenda(@RequestBody @Valid VendaRequestDTO vendaRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(vendaService.criarVenda(vendaRequestDTO));
     }
 
-    @PutMapping(value = "/update/{idVenda}")
+    @PutMapping(value = "/{idVenda}")
     public ResponseEntity<VendaResponseDTO> atualizarVenda(@PathVariable Long idVenda, @RequestBody @Valid VendaAtualizarDTO dadosVenda) {
         return ResponseEntity.status(HttpStatus.OK).body(vendaService.atualizarVenda(idVenda, dadosVenda));
     }
 
-    @DeleteMapping(value = "/delete/{idVenda}")
+    @DeleteMapping(value = "/{idVenda}")
     public ResponseEntity<String> deletarVenda(@PathVariable Long idVenda) {
         return ResponseEntity.status(HttpStatus.OK).body(vendaService.deletarVenda(idVenda));
     }

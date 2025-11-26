@@ -1,5 +1,4 @@
 package com.br.notoriousGAME.apiNotoriousGAME.service;
-
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.VendaAtualizarDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.VendaRequestDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.VendaProdutoResponseDTO;
@@ -8,6 +7,9 @@ import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Jogo;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Usuario;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Venda;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.VendaProduto;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.JogoNotFoundException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.UsuarioNotFoundException;
+import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.VendaNotFoundException;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.JogoRepository;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.UsuarioRepository;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.VendaProdutoRepository;
@@ -61,7 +63,7 @@ public class VendaService {
     public VendaResponseDTO criarVenda(VendaRequestDTO vendaRequestDTO) {
         // 1. Busca o Usuário (Quem está comprando?)
         Usuario usuario = usuarioRepository.findById(vendaRequestDTO.idUsuario())
-                .orElseThrow(()-> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(()-> new UsuarioNotFoundException(vendaRequestDTO.idUsuario()));
 
         // 2. Cria o cabeçalho da Venda (Status Pendente, Data Hoje, Total 0)
         Venda venda = new Venda(usuario);
@@ -73,7 +75,7 @@ public class VendaService {
 
         for (var produtoRequest : vendaRequestDTO.produtos()) {
             Jogo jogo = jogoRepository.findById(produtoRequest.idJogo())
-                    .orElseThrow(()-> new RuntimeException("Jogo com o ID: " + produtoRequest.idJogo() + " não foi encontrado"));
+                    .orElseThrow(()-> new JogoNotFoundException(produtoRequest.idJogo()));
 
             // Cria o relacionamento (Item -> Venda + Jogo)
             VendaProduto novoProduto = new VendaProduto(venda, jogo, jogo.getPrecoJogo());
@@ -109,7 +111,7 @@ public class VendaService {
         // A. Trocando o Dono (Usuário)
         if (!venda.getUsuario().getIdUsuario().equals(vendaAtualizarDTO.idUsuario())){
             Usuario novoUsuario = usuarioRepository.findById(vendaAtualizarDTO.idUsuario())
-                    .orElseThrow(()-> new RuntimeException("Novo usuário não encontrado"));
+                    .orElseThrow(()-> new UsuarioNotFoundException(vendaAtualizarDTO.idUsuario()));
             venda.setUsuario(novoUsuario);
         }
 
@@ -127,7 +129,7 @@ public class VendaService {
 
         for (var produtoDTO : vendaAtualizarDTO.produtos()) {
             Jogo jogo = jogoRepository.findById(produtoDTO.idJogo())
-                    .orElseThrow(()-> new RuntimeException("Jogo com ID " + produtoDTO.idJogo() + " não encontrado"));
+                    .orElseThrow(()-> new JogoNotFoundException(produtoDTO.idJogo()));
 
             // Cria o novo item ligado a ESSA venda
             VendaProduto novoProduto = new VendaProduto(venda, jogo, jogo.getPrecoJogo());
@@ -161,6 +163,6 @@ public class VendaService {
 
     public Venda getVendaEntityById(Long idVenda){
         return vendaRepository.findById(idVenda)
-                .orElseThrow(()-> new RuntimeException("Não foi possivel achar uma venda com o ID: " + idVenda));
+                .orElseThrow(()-> new VendaNotFoundException(idVenda));
     }
 }

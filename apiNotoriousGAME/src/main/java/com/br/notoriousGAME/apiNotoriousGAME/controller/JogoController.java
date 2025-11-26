@@ -18,7 +18,7 @@ public class JogoController {
     @Autowired
     private JogoService jogoService;
 
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<JogoResponseDTO>> listarTodosJogos(){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.listarTodosJogos());
     }
@@ -28,17 +28,17 @@ public class JogoController {
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.listarJogoPorId(idJogo));
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping
     public ResponseEntity<JogoResponseDTO> criarJogo(@RequestBody @Valid JogoRequestDTO jogoRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.criarJogo(jogoRequestDTO));
     }
 
-    @PutMapping(value = "/update/{idJogo}")
+    @PutMapping(value = "/{idJogo}")
     public ResponseEntity<JogoResponseDTO> atualizarJogo(@PathVariable Long idJogo, @RequestBody @Valid JogoRequestDTO jogoRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.atualizarJogo(idJogo, jogoRequestDTO));
     }
 
-    @DeleteMapping(value = "/delete/{idJogo}")
+    @DeleteMapping(value = "/{idJogo}")
     public ResponseEntity<String> deletarJogo(@PathVariable Long idJogo){
         return ResponseEntity.status(HttpStatus.OK).body(jogoService.deletarJogo(idJogo));
     }

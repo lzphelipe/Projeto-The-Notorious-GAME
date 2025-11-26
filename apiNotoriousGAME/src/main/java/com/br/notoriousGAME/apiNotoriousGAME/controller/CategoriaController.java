@@ -18,7 +18,7 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<CategoriaResponseDTO>> listarTodasCategorias() {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarTodasCategorias());
     }
@@ -28,17 +28,17 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarCategoriaPorId(idCategoria));
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping
     public ResponseEntity<CategoriaResponseDTO> criarCategoria(@RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.criarCategoria(categoriaRequestDTO));
     }
 
-    @PutMapping(value = "/update/{idCategoria}")
+    @PutMapping(value = "/{idCategoria}")
     public ResponseEntity<CategoriaResponseDTO> atualizarCategoria(@PathVariable Long idCategoria, @RequestBody @Valid CategoriaRequestDTO categoriaRequestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.atualizarCategoria(idCategoria, categoriaRequestDTO));
     }
 
-    @DeleteMapping(value = "/delete/{idCategoria}")
+    @DeleteMapping(value = "/{idCategoria}")
     public ResponseEntity<String> deletarCategoria(@PathVariable Long idCategoria) {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.deletarCategoria(idCategoria));
     }
