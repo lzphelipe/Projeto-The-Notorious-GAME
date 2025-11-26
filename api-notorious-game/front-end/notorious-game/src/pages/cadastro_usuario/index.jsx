@@ -5,11 +5,10 @@ import LogoImg from '../../assets/logo_notorious.png'
 
 function CadastroUsuario() {
   const [formData, setFormData] = useState({
-    nome: '',
+    nomeUsuario: '',
     cpf: '',
     email: '',
     senha: '',
-    perfil: ''
   })
 
   function handleInputChange(event) {
@@ -19,12 +18,11 @@ function CadastroUsuario() {
 
   async function cadastrarUsuario() {
     try {
-      // Aqui usamos o POST para criar, enviando o objeto formData
       await api.post('/usuarios', formData)
 
       alert('Usuário cadastrado com sucesso!')
 
-      setFormData({ nome: '', cpf: '', email: '', senha: '', perfil: '' })
+      setFormData({ nome: '', cpf: '', email: '', senha: ''})
 
     } catch (error) {
       console.error("Erro ao cadastrar:", error)
@@ -37,15 +35,13 @@ function CadastroUsuario() {
 
       <img src={LogoImg} alt="Logo Notorious" className="logo-img" />
 
-      <div className="risco-meio"></div>
-
       <form>
         <h1>Cadastro de Usuários</h1>
         <input
           placeholder='Nome'
-          name='nome'
+          name='nomeUsuario'
           type='text'
-          value={formData.nome}
+          value={formData.nomeUsuario}
           onChange={handleInputChange}
         />
 
@@ -74,13 +70,6 @@ function CadastroUsuario() {
           onChange={handleInputChange}
         />
 
-        <input
-          placeholder='Perfil'
-          name='perfil'
-          type='text'
-          value={formData.perfil}
-          onChange={handleInputChange}
-        />
         <button type='button' onClick={cadastrarUsuario}>
           Cadastrar
         </button>
