@@ -63,7 +63,9 @@ public class UsuarioService {
         if (dadosUsuario.nomeUsuario() != null && !dadosUsuario.nomeUsuario().isBlank()){
             usuario.setNomeUsuario(dadosUsuario.nomeUsuario());
         }
-        if (dadosUsuario.email() != null && !dadosUsuario.email().equals(usuario.getEmail()));{
+
+        // Verifica o E-mail
+        if (dadosUsuario.email() != null && !dadosUsuario.email().equals(usuario.getEmail())){
             if (usuarioRepository.findByEmail(dadosUsuario.email()).isPresent()){
                 throw new EmailAlreadyExistsException("Este e-mail já está sendo usado por outro usuário!");
             }

@@ -19,7 +19,7 @@ public class AuthService {
                 .orElseThrow(()-> new EmailAlreadyExistsException("Email não encontrado!"));
 
         // Verifica a senha
-        if (usuario.getSenha().equals(senha)){
+        if (!usuario.getSenha().trim().equals(senha.trim())){
             throw new PasswordInvalidException("Senha incorreta!");
         }
 

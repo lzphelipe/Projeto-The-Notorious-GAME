@@ -101,13 +101,13 @@ public class GeneralExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<RestErrorMessage> handleVAlidationErrors(MethodArgumentNotValidException exception) {
-        String erros = exception.getBindingResult().getFieldErrors().stream()
-                .map(erro -> erro.getDefaultMessage())
-                .collect(Collectors.joining("; "));
-        RestErrorMessage errorMessage = new RestErrorMessage(
-                HttpStatus.BAD_REQUEST,
-                "Erro de validação: " + erros);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    private ResponseEntity<List<RestErrorMessage>> methodArgumentNotValid(MethodArgumentNotValidException exception) {
+        List<RestErrorMessage> errors = exception.getBindingResult().getFieldErrors()
+                .stream().map(fieldError -> new RestErrorMessage(
+                        HttpStatus.BAD_REQUEST,
+                        fieldError.getDefaultMessage()))
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+
     }
 }
