@@ -32,7 +32,7 @@ function CadastroUsuario() {
 
   return (
     <div className='container'>
-
+      
       <img src={LogoImg} alt="Logo Notorious" className="logo-img" />
 
       <form>

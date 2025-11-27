@@ -5,8 +5,14 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
+html, body {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%; 
+}
+
+body {
   background: linear-gradient(180deg, #050505 0%, rgba(1, 1, 1, 0.8) 100%);
+  background-attachment: fixed; /* O fundo não se mexe */
+  background-repeat: no-repeat; /* Garante que não repita */
+  background-size: cover;       /* Cobre todo o espaço */
 }

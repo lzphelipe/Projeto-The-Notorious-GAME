@@ -1,0 +1,145 @@
+.layout-container {
+  display: flex;
+  flex-direction: column; /* 1º Header em cima, 2º Corpo embaixo */
+  min-height: 100vh;      /* Garante altura total */
+  width: 100%;
+  background-color: #ffffff; /* <--- AQUI: Define que o fundo "geral" (esquerda) é BRANCO */
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  
+}
+
+.logo-area {
+  background: transparent; /* Fundo transparente */
+  border: none;            /* Sem borda */
+  cursor: pointer;         /* Mãozinha do mouse */
+  padding: 5px;            /* Um espacinho para facilitar o clique */
+  display: flex;           /* Centraliza a imagem no botão */
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- ESTILO DA BARRA SUPERIOR --- */
+.top-bar {
+  height: 90px;           /* Altura fixa */
+  background-color: #FFBE00;
+  display: flex;
+  justify-content: space-between; /* Espalha: Logo na esq, Icones na dir */
+  align-items: center;
+  padding: 0 30px;
+}
+
+.top-icons {
+  display: flex;
+  gap: 20px; /* Espaço entre o carrinho e o user */
+}
+
+/* 1. Tira o fundo cinza e borda do botão para ficar só o ícone */
+.btn-icone {
+  background: transparent; /* Fundo transparente */
+  border: none;            /* Sem borda */
+  cursor: pointer;         /* Mãozinha do mouse */
+  padding: 5px;            /* Um espacinho para facilitar o clique */
+  display: flex;           /* Centraliza a imagem no botão */
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Define o tamanho da imagem */
+.icone-img {
+  width: 30px;             /* <--- Mude esse valor para aumentar/diminuir */
+  height: 30px;            /* <--- Mantenha igual à largura */
+  object-fit: contain;     /* Garante que o ícone não fique esticado/achatado */
+}
+
+/* Opcional: Efeito ao passar o mouse */
+.btn-icone:hover {
+  opacity: 0.7;            /* Fica levemente transparente quando passa o mouse */
+  transform: scale(1.1);   /* Aumenta um pouquinho (efeito de zoom) */
+  transition: 0.2s;
+}
+
+/* --- ESTILO DO CORPO (Conteúdo + Barra Direita) --- */
+.main-body {
+  display: flex; /* Coloca Conteúdo e Sidebar lado a lado */
+  flex: 1;       /* Ocupa todo o resto da altura disponível */
+}
+
+.content {
+  flex: 1;       /* Ocupa todo o espaço sobrando na esquerda */
+  padding: 40px;
+}
+
+/* --- ESTILO DA BARRA LATERAL DIREITA --- */
+.right-sidebar {
+  width: 400px;           /* Largura fixa da barra direita */
+  background-color: #000;
+  
+  display: flex;
+  flex-direction: column; /* Botões um embaixo do outro */
+  align-items: center;    /* Centraliza os botões */
+  padding-top: 75px;      /* Espaço no topo */
+  gap: 75px;              /* Espaço entre os botões */
+  padding-bottom: 75px;
+
+}
+
+.empty-btn {
+  width: 250px;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid transparent;
+
+  /* --- MÁGICA DA CENTRALIZAÇÃO --- */
+  display: flex;           /* Ativa o modo flexível */
+  align-items: center;     /* Centraliza Verticalmente (Baixo/Cima) */
+  justify-content: center; /* Centraliza Horizontalmente (Esq/Dir) */
+  
+  /* Dica: aumente a fonte e deixe negrito para ficar bonito */
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+.empty-btn:hover {
+  background-color: #333; /* Fica amarelo ao passar o mouse */
+}
+
+/* Container da busca */
+.header-conteudo {
+  display: flex;
+  width: 100%;          /* Garante que o container ocupe tudo */
+  margin-bottom: 30px;
+}
+
+.barra-pesquisa {
+  width: 100%;          /* <--- MÁGICA AQUI: Ocupa todo o espaço disponível */
+  height: 50px;         /* Aumentei um pouco para ficar mais imponente */
+  border-radius: 25px;  /* Mais arredondado */
+  border: none;
+  padding-left: 20px;   /* Mais espaço para o texto não colar na borda */
+  font-size: 18px;      /* Texto maior */
+  
+  background-color: #d9d9d9; 
+  color: #000000;
+  outline: none;        /* Tirei a borda amarela de seleção padrão */
+  
+  /* Sombra leve para destacar no fundo branco (opcional) */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+}
+
+/* Card simples só pra testar */
+.card-jogo {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 10px;
+}
