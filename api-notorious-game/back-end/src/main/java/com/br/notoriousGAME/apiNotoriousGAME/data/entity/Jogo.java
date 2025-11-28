@@ -32,10 +32,14 @@ public class Jogo {
     @Column(name = "preco", nullable = false)
     private BigDecimal precoJogo;
 
+    @Column(name = "urlImagem", length = 500)
+    private String urlImagem;
+
     @Builder
     public Jogo(JogoRequestDTO jogoRequestDTO) {
         this.nomeJogo = jogoRequestDTO.nomeJogo();
         this.desenvolvedoraJogo = jogoRequestDTO.desenvolvedoraJogo();
         this.precoJogo = jogoRequestDTO.precoJogo();
+        this.urlImagem = jogoRequestDTO.urlImagem();
     }
 }

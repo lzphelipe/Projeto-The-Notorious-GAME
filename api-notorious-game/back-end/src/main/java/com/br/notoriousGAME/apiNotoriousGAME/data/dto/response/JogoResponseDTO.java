@@ -9,9 +9,17 @@ public record JogoResponseDTO(
         String nomeJogo,
         CategoriaResponseDTO categoria,
         String desenvolvedoraJogo,
-        BigDecimal precoJogo
+        BigDecimal precoJogo,
+        String urlImagem
 ) {
     public JogoResponseDTO(Jogo jogo){
-        this(jogo.getIdJogo(), jogo.getNomeJogo(),new CategoriaResponseDTO(jogo.getCategoria()), jogo.getDesenvolvedoraJogo(), jogo.getPrecoJogo());
+        this(
+                jogo.getIdJogo(),
+                jogo.getNomeJogo(),
+                new CategoriaResponseDTO(jogo.getCategoria()),
+                jogo.getDesenvolvedoraJogo(),
+                jogo.getPrecoJogo(),
+                jogo.getUrlImagem()
+        );
     }
 }

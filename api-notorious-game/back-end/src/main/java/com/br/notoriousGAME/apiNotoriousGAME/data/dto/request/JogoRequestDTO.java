@@ -17,7 +17,10 @@ public record JogoRequestDTO(
         String desenvolvedoraJogo,
 
         @NotNull(message = "O preço do jogo é obrigatório.")
-        BigDecimal precoJogo
+        BigDecimal precoJogo,
+
+        @NotBlank
+        String urlImagem
 
 ) {
 }

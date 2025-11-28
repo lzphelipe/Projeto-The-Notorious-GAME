@@ -52,6 +52,7 @@ public class JogoService {
         jogo.setNomeJogo(jogoRequestDTO.nomeJogo());
         jogo.setDesenvolvedoraJogo(jogoRequestDTO.desenvolvedoraJogo());
         jogo.setPrecoJogo(jogoRequestDTO.precoJogo());
+        jogo.setUrlImagem(jogoRequestDTO.urlImagem());
 
         Categoria novaCategoria = categoriaRepository.findByNomeCategoriaIgnoreCase(jogoRequestDTO.nomeCategoria())
                 .orElseThrow(()-> new RuntimeException("Erro: A categoria '" + jogoRequestDTO.nomeCategoria() + "' não foi encontrada! Cadastre-a primeiro no menu Categorias."));
