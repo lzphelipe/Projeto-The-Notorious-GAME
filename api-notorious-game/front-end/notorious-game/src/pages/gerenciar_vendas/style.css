@@ -1,0 +1,287 @@
+/* 1. LAYOUT GERAL E HEADER */
+
+/* Fundo da página inteira */
+.layout-admin {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* Barra Amarela do Topo */
+.top-bar {
+  height: 90px;
+  background-color: #FFBE00;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+/* Área da Logo */
+.logo-area {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  transition: 0.2s;
+}
+
+.logo-img:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+/* Ícones da Direita (Carrinho/Perfil) */
+.top-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-icone {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.btn-icone:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.icone-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* 2. CONTEÚDO PRINCIPAL (CONTAINER) */
+
+/* Fundo cinza com gradiente onde fica a tabela */
+.main-content-tabela {
+  padding: 40px;
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* O "Card" branco que segura a tabela (Versão Larga 95%) */
+.container-tabela-larga {
+  width: 100%;
+  max-width: 95%; /* Bem largo para caber muitas colunas */
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 0;
+}
+
+/* 3. BARRA DE PESQUISA */
+
+.header-conteudo {
+  display: flex;
+  width: 100%;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  justify-content: center; /* Centraliza a barra */
+}
+
+.barra-pesquisa {
+  width: 60%;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  padding-left: 20px;
+  font-size: 18px;
+  background-color: #d9d9d9;
+  color: #000000;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 4. ESTILO DA TABELA (GERAL) */
+
+.tabela-usuarios {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Cabeçalho Preto e Amarelo */
+.tabela-usuarios th {
+  background-color: #222;
+  color: #FFBE00;
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+}
+
+/* Células da Tabela */
+.tabela-usuarios td {
+  padding: 20px;
+  font-size: 15px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+/* Efeito Zebrado (Linhas pares) */
+.tabela-usuarios tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+/* Efeito Hover na linha */
+.tabela-usuarios tbody tr:hover {
+  background-color: #fff8e1; /* Amarelo clarinho */
+  transform: scale(1.005);
+  transition: 0.2s;
+  cursor: default;
+}
+
+/* Remove a borda da última linha e põe o detalhe amarelo */
+.tabela-usuarios tbody tr:last-of-type td {
+  border-bottom: 2px solid #FFBE00;
+}
+
+/* Utilitário para centralizar texto (ID, Status, Ações) */
+.texto-centro {
+  text-align: center !important;
+}
+
+/* 5. BOTÕES DA TABELA */
+
+/* Botão Editar (Amarelo) */
+.btn-editar-tabela {
+  background: #fff8e1;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+.btn-editar-tabela:hover {
+  background-color: #FFBE00;
+  transform: rotate(-15deg);
+}
+
+/* Botão Excluir (Vermelho) */
+.btn-excluir-tabela {
+  background: #ffecec;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+.btn-excluir-tabela:hover {
+  background-color: #ff0000;
+  color: white; /* Muda a cor do ícone pra branco */
+  transform: rotate(15deg);
+}
+
+/* Botão Setinha (Expandir Detalhes) */
+.btn-setinha {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+  transition: 0.3s;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.btn-setinha:hover {
+  background-color: #eee;
+  color: #000;
+}
+
+/* 6. ESPECÍFICO DE VENDAS (BADGES E DETALHES) */
+
+/* Badges de Status (Pílulas Coloridas) */
+.status-badge {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.status-badge.pendente { background-color: #f39c12; }
+.status-badge.concluido { background-color: #27ae60; }
+.status-badge.cancelado { background-color: #c0392b; }
+
+/* Linha Expandida (Pai) */
+.linha-ativa {
+  background-color: #f0f0f0 !important;
+  font-weight: bold;
+}
+
+/* Linha de Detalhes (Filho) */
+.linha-detalhes td {
+  background-color: #fafafa;
+  padding: 0 !important;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Container interno dos detalhes */
+.detalhes-container {
+  padding: 20px 40px;
+  text-align: left;
+}
+
+.detalhes-container h4 {
+  margin-bottom: 10px;
+  color: #FFBE00;
+}
+
+.detalhes-container ul {
+  list-style: none;
+  padding: 0;
+  max-width: 500px;
+}
+
+.detalhes-container li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+  color: #333;
+}
