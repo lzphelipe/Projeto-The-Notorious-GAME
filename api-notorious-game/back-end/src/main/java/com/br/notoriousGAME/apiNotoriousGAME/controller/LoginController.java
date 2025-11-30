@@ -2,7 +2,6 @@ package com.br.notoriousGAME.apiNotoriousGAME.controller;
 
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.LoginRequestDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.TokenResponseDTO;
-import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.UsuarioResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

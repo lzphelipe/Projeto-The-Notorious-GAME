@@ -11,13 +11,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "Categoria")
+@Table(name = "categorias")
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategoria;
 
-    @Column(name = "nomeCategoria", nullable = false, length = 100, unique = true)
+    @Column(name = "nome", nullable = false, length = 100, unique = true)
     private String nomeCategoria;
 
     @Column(name = "descricao", nullable = false, length = 300)

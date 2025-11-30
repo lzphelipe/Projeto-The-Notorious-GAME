@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "VendaProduto")
+@Table(name = "vendas_produtos")
 public class VendaProduto {
 
     @Id
@@ -18,14 +18,14 @@ public class VendaProduto {
     private Long idVendaProduto;
 
     @ManyToOne
-    @JoinColumn(name = "idVenda", nullable = false)
+    @JoinColumn(name = "id_venda", nullable = false)
     private Venda venda;
 
     @ManyToOne
-    @JoinColumn(name = "idJogo",  nullable = false)
+    @JoinColumn(name = "id_jogo",  nullable = false)
     private Jogo jogo;
 
-    @Column(name = "precoMomento", nullable = false)
+    @Column(name = "preco_momento", nullable = false)
     private BigDecimal precoMomento;
 
     @Builder

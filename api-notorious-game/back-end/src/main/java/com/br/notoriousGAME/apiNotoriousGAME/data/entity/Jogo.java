@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "Jogo")
+@Table(name = "jogos")
 public class Jogo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Jogo {
     private String nomeJogo;
 
     @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @JoinColumn(name = "id_categoria")
     private Categoria categoria;
 
     @Column(name = "desenvolvedora", nullable = false, length = 100)
@@ -32,7 +32,7 @@ public class Jogo {
     @Column(name = "preco", nullable = false)
     private BigDecimal precoJogo;
 
-    @Column(name = "urlImagem", length = 500)
+    @Column(name = "url_imagem", length = 500)
     private String urlImagem;
 
     @Builder

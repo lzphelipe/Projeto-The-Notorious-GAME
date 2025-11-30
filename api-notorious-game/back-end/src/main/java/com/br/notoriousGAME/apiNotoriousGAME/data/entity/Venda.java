@@ -12,23 +12,23 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Venda" )
+@Table(name = "vendas" )
 public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idVenda;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "dataVenda", nullable = false)
+    @Column(name = "data_venda", nullable = false)
     private LocalDate dataVenda;
 
-    @Column(name = "precoTotal", nullable = false)
+    @Column(name = "preco_total", nullable = false)
     private BigDecimal precoTotal;
 
-    @Column(name = "statusVenda", nullable = false, length = 50)
+    @Column(name = "status_venda", nullable = false, length = 50)
     private String statusVenda;
 
     @Builder
