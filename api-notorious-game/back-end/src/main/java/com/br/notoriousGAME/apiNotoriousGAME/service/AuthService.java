@@ -1,11 +1,12 @@
 package com.br.notoriousGAME.apiNotoriousGAME.service;
 
-import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.UsuarioResponseDTO;
+import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.TokenResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Usuario;
-import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.EmailAlreadyExistsException;
 import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.PasswordInvalidException;
+import com.br.notoriousGAME.apiNotoriousGAME.infra.security.TokenService;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,17 +14,21 @@ public class AuthService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioResponseDTO logarUsuario(String email, String senha){
-        // Busca pelo email
-        Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(()-> new EmailAlreadyExistsException("Email não encontrado!"));
+    @Autowired
+    private TokenService tokenService;
 
-        // Verifica a senha
-        if (!usuario.getSenha().trim().equals(senha.trim())){
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public TokenResponseDTO logarUsuario(String email, String senha){
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(()-> new RuntimeException("Email não encontrado."));
+
+        if (!passwordEncoder.matches(senha, usuario.getSenha())){
             throw new PasswordInvalidException("Senha incorreta!");
         }
 
-        // Se passou, retorna os dados (O Front vai ler o Perfil aqui!)
-        return new UsuarioResponseDTO(usuario);
+        String token = tokenService.generateToken(usuario);
+        return new TokenResponseDTO(token);
     }
 }

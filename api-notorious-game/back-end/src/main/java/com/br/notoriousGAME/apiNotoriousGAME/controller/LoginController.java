@@ -1,6 +1,7 @@
 package com.br.notoriousGAME.apiNotoriousGAME.controller;
 
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.request.LoginRequestDTO;
+import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.TokenResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.data.dto.response.UsuarioResponseDTO;
 import com.br.notoriousGAME.apiNotoriousGAME.service.AuthService;
 import jakarta.validation.Valid;
@@ -17,7 +18,8 @@ public class LoginController {
     private AuthService authService;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UsuarioResponseDTO> loginUsuario(@RequestBody @Valid LoginRequestDTO loginRequestDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(authService.logarUsuario(loginRequestDTO.email(), loginRequestDTO.senha()));
+    public ResponseEntity<TokenResponseDTO> loginUsuario(@RequestBody @Valid LoginRequestDTO loginRequestDTO){
+        var token = authService.logarUsuario(loginRequestDTO.email(), loginRequestDTO.senha());
+        return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 }

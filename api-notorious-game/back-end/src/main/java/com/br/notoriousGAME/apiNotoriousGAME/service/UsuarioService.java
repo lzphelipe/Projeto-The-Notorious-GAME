@@ -8,8 +8,10 @@ import com.br.notoriousGAME.apiNotoriousGAME.data.entity.Usuario;
 import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.CPFAlreadyExistsException;
 import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.EmailAlreadyExistsException;
 import com.br.notoriousGAME.apiNotoriousGAME.exceptions.General.UsuarioNotFoundException;
+import com.br.notoriousGAME.apiNotoriousGAME.infra.security.TokenService;
 import com.br.notoriousGAME.apiNotoriousGAME.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,12 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<UsuarioResponseDTO> listarTodosUsuarios(){
         return usuarioRepository.findAll().stream()
@@ -46,10 +54,10 @@ public class UsuarioService {
         novoUsuario.setNomeUsuario(dadosUsuario.nomeUsuario());
         novoUsuario.setEmail(dadosUsuario.email());
         novoUsuario.setCpf(dadosUsuario.cpf());
-        novoUsuario.setSenha(dadosUsuario.senha());
+        novoUsuario.setSenha(passwordEncoder.encode(dadosUsuario.senha()));
 
         // Todo cadastro público nasce como CLIENTE
-        novoUsuario.setPerfil(Perfil.PESSOA);
+        novoUsuario.setPerfil(Perfil.CLIENTE);
 
         // Salva e Retorna DTO (sem senha)
         usuarioRepository.save(novoUsuario);
