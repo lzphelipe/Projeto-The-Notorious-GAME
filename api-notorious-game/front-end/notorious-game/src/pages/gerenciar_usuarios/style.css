@@ -1,0 +1,229 @@
+.layout-admin {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff; 
+}
+
+.top-bar {
+  height: 90px;           
+  background-color: #FFBE00;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 30px;
+}
+
+.logo-area {
+  background: transparent; 
+  border: none;            
+  cursor: pointer;         
+  padding: 5px;            
+  display: flex;           
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-img:hover {
+  opacity: 0.7;          
+  transform: scale(1.1);  
+  transition: 0.2s;
+}
+
+.top-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icone-img {
+  width: 30px;             
+  height: 30px;           
+  object-fit: contain;     
+}
+
+.btn-icone {
+  background: transparent; 
+  border: none;            
+  cursor: pointer;         
+  padding: 5px;            
+  display: flex;          
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icone:hover {
+  opacity: 0.7;           
+  transform: scale(1.1);   
+  transition: 0.2s;
+}
+
+
+.main-content-tabela {
+  padding: 40px;
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* O "Card" que segura a tabela */
+.container-tabela {
+  width: 100%;
+  max-width: 1100px;
+  background-color: #fff;
+  border-radius: 15px;      
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+  overflow: hidden;         
+  padding: 0;             
+}
+
+/* --- ESTILO DA TABELA --- */
+.tabela-usuarios {
+  width: 100%;
+  border-collapse: collapse; 
+  background-color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* CABEÇALHO */
+.tabela-usuarios th {
+  background-color: #222;    
+  color: #FFBE00;            
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase; 
+  letter-spacing: 1px;       
+  border: none;              
+}
+
+/* LINHAS DA TABELA */
+.tabela-usuarios td {
+  padding: 20px;
+  font-size: 15px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.tabela-usuarios tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-usuarios tbody tr:hover {
+  background-color: #fff8e1;
+  transform: scale(1.005);   
+  transition: 0.2s;
+  cursor: default;
+}
+
+/* Remove a borda da última linha para ficar perfeito */
+.tabela-usuarios tbody tr:last-of-type td {
+  border-bottom: 2px solid #FFBE00;
+}
+
+/* Container que segura a tabela */
+.container-tabela-larga {
+  width: 100%;
+  max-width: 95%; 
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding: 0; 
+}
+
+/* Botão de Editar (Amarelo) */
+.btn-editar-tabela {
+  background: #fff8e1;     
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+.btn-editar-tabela:hover {
+  background-color: #FFBE00; 
+  transform: rotate(-15deg); 
+}
+
+/* O Botão de Excluir continua igual (Vermelho) */
+.btn-excluir-tabela {
+  background: #ffecec;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+.btn-excluir-tabela:hover {
+  background-color: #ff0000;
+  transform: rotate(15deg);
+}
+
+/* Classe utilitária para centralizar texto */
+.texto-centro {
+  text-align: center !important; 
+}
+
+/* Botão de Lixo */
+.btn-excluir-tabela {
+  background: #ffecec;       
+  border-radius: 50%;       
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}      
+
+.btn-excluir-tabela:hover {
+  background-color: #ff0000; 
+  color: white;              
+  transform: rotate(15deg); 
+}
+
+.header-conteudo {
+  display: flex;
+  width: 100%;          
+  margin-bottom: 30px;
+  padding-top: 20px;
+  justify-content: center;
+}
+
+
+.barra-pesquisa {
+  width: 60%;         
+  height: 50px;         
+  border-radius: 25px; 
+  border: none;
+  padding-left: 20px;   
+  font-size: 18px;     
+  background-color: #d9d9d9; 
+  color: #000000;
+  outline: none;        
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+}
