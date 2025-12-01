@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './style.css'
+import styles from './style.module.css'
 import api from '../../services/api'
 import LogoImg from '../../assets/logo_notorious.png'
 
@@ -43,13 +43,15 @@ function Login() {
   }
 
   return (
-    <div className='container'>
-      <img src={LogoImg} alt="Logo Notorious" className="logo-img" />
+    <div className={styles['container']}>
 
-      <form>
+      <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
+
+      <form className={styles['form-login']}>
         <h1>Login</h1>
 
         <input
+          className={styles['input-login']}
           placeholder='E-mail'
           name='email'
           type='email'
@@ -58,6 +60,7 @@ function Login() {
         />
 
         <input
+          className={styles['input-login']}
           placeholder='Senha'
           name='senha'
           type='password'
@@ -65,10 +68,16 @@ function Login() {
           onChange={(e) => setSenha(e.target.value)}
         />
 
-        <button type='button' onClick={fazerLogin}> Entrar </button>
+        <button
+          type='button'
+          onClick={fazerLogin}
+          className={styles['btn-login']}
+        >
+          Entrar
+        </button>
       </form>
     </div>
   )
 }
 
-export default Login // CORREÇÃO 6: Tirei a vírgula que tinha aqui no final
+export default Login
