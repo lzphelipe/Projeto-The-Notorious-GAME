@@ -1,0 +1,181 @@
+/* ==========================================================================
+   1. LAYOUT GERAL E HEADER
+   ========================================================================== */
+
+.layout-admin {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.top-bar {
+  height: 90px;
+  background-color: #FFBE00;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.logo-area {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  transition: 0.2s;
+}
+
+.logo-img:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.top-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-icone {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.btn-icone:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.icone-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   2. ESTRUTURA PRINCIPAL
+   ========================================================================== */
+
+.main-content {
+  width: 100%;
+  height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.black-container {
+  background-color: #000;
+  border-radius: 20px;
+  padding: 70px 40px;
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+}
+
+.divisor-vertical {
+  width: 1px;
+  height: 400px;
+  background-color: #666;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   3. FORMULÁRIO (ESQUERDA)
+   ========================================================================== */
+
+.form-esquerda {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 45%;
+}
+
+.form-esquerda input {
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  background-color: #d9d9d9;
+  padding-left: 20px;
+  font-size: 16px;
+  color: #000;
+  outline: none;
+}
+
+/* ==========================================================================
+   4. AÇÕES (DIREITA)
+   ========================================================================== */
+
+.form-direita {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.form-direita h2 {
+  margin-bottom: 40px;
+  font-size: 24px;
+}
+
+.grupo-botoes {
+  display: flex;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   5. BOTÕES DE AÇÃO
+   ========================================================================== */
+
+.btn-cancelar {
+  background-color: #333; /* Cinza Escuro Neutro */
+  color: #fff;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancelar:hover {
+  background-color: #555;
+}
+
+.btn-salvar {
+  background-color: #FFBE00; /* Amarelo da Marca */
+  color: #000; /* Texto Preto para leitura */
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-salvar:hover {
+  background-color: #e6ac00;
+}
