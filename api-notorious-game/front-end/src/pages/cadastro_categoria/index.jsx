@@ -36,7 +36,7 @@ function CadastrarCategoria() {
       alert("Categoria cadastrada com sucesso!")
       
       // Redireciona de volta para a tela de Gerenciar Jogos
-      navigate('/jogos') 
+      navigate('/categorias') 
 
     } catch (error) {
       console.error("Erro ao cadastrar categoria", error)

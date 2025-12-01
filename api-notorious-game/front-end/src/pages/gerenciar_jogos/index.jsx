@@ -74,9 +74,9 @@ function GerenciarJogos() {
         {/* Direita */}
         <button 
           className={styles['btn-adicionar-categoria']}
-          onClick={() => navigate('/categorias/nova')} 
+          onClick={() => navigate('/categorias')} 
         >
-          Nova Categoria
+          Categorias
         </button>
       </div>
 
