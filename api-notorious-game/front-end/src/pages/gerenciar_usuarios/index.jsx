@@ -1,88 +1,129 @@
-import { useState } from 'react'
-import './style.css'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from './style.module.css' 
+import api from '../../services/api' 
+
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
-import Carrinho from '../../assets/carrinho-de-compras.png'
 
-// Ícones simples
 const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
 const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>
 
 function GerenciarUsuarios() {
-
-  const [usuarios, setUsuarios] = useState([
-  ])
-
+  const navigate = useNavigate()
+  const [usuarios, setUsuarios] = useState([])
   const [busca, setBusca] = useState('')
 
-  return (
-    <div className="layout-admin">
+  // 1. FUNÇÃO PARA BUSCAR DO BANCO DE DADOS
+  async function carregarUsuarios() {
+    const token = localStorage.getItem('token')
+    try {
+      const response = await api.get('/usuarios', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      setUsuarios(response.data)
+    } catch (error) {
+      console.error("Erro ao buscar usuários", error)
+      alert("Erro ao carregar lista de usuários.")
+    }
+  }
 
-      <header className="top-bar">
-        <button className="logo-area">
-          <img src={LogoImg} alt="Logo Notorious" className="logo-img" />
-        </button>
-        <div className="top-icons">
-          <button className='btn-icone'> <img src={Carrinho} className="icone-img" /> </button>
-          <button className='btn-icone'> <img src={Perfil} className="icone-img" /> </button>
+  // Carrega ao abrir a tela
+  useEffect(() => {
+    carregarUsuarios()
+  }, [])
+
+  // 2. FUNÇÃO DE EXCLUIR
+  async function handleDelete(id) {
+    if (confirm("Tem certeza que deseja excluir este usuário?")) {
+      const token = localStorage.getItem('token')
+      try {
+        await api.delete(`/usuarios/${id}`, { // Verifique se sua rota no Java é essa
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        alert("Usuário excluído com sucesso!")
+        carregarUsuarios() // Atualiza a lista
+      } catch (error) {
+        alert("Erro ao excluir usuário.")
+      }
+    }
+  }
+
+  return (
+    <div className={styles['layout-admin']}>
+
+      <header className={styles['top-bar']}>
+        <div className={styles['logo-area']} onClick={() => navigate('/home')}>
+          <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
+        </div>
+        <div className={styles['top-icons']}>
+          <button className={styles['btn-icone']} onClick={() =>navigate('/')}> <img src={Perfil} className={styles['icone-img']} /> </button>
         </div>
       </header>
 
-      <main className="main-content-tabela">
+      <main className={styles['main-content-tabela']}>
 
-        {/* AQUI MUDEI PARA CLASSNAME NOVO PRA FICAR LARGO */}
-        <div className="container-tabela-larga">
+        <div className={styles['container-tabela-larga']}>
 
-          <div className="header-conteudo">
+          {/* CABEÇALHO DA TABELA (Busca + Botão Novo) */}
+          <div className={styles['header-conteudo']}>
+            
             <input
               type="text"
               placeholder="Pesquisar usuário..."
-              className="barra-pesquisa"
+              className={styles['barra-pesquisa']}
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
             />
+
+            {/* BOTÃO NOVO USUÁRIO */}
+            <button 
+              className={styles['btn-novo-usuario']}
+              onClick={() => alert('Novo Usuário ainda não foi emplementado!')} 
+            >
+              + Novo Usuário
+            </button>
+
           </div>
 
-          <table className="tabela-usuarios">
+          <table className={styles['tabela-usuarios']}>
             <thead>
               <tr>
-                {/* Adicionei 'texto-centro' no ID */}
-                <th className="texto-centro">ID</th>
-
+                <th className={styles['texto-centro']}>ID</th>
                 <th>Nome Completo</th>
                 <th>CPF</th>
                 <th>E-Mail</th>
-
-                {/* Adicionei 'texto-centro' na SENHA para alinhar com as estrelinhas */}
-                <th className="texto-centro">Senha</th>
-
-                {/* Adicionei nos botões também para ficar simétrico */}
-                <th className="texto-centro">Editar</th>
-                <th className="texto-centro">Excluir</th>
+                <th className={styles['texto-centro']}>Senha</th>
+                <th className={styles['texto-centro']}>Editar</th>
+                <th className={styles['texto-centro']}>Excluir</th>
               </tr>
             </thead>
 
             <tbody>
               {usuarios.filter(user =>
-                user.nome.toLowerCase().includes(busca.toLowerCase())
+                // Proteção caso user.nome venha null do banco
+                (user.nomeUsuario || user.nome || '').toLowerCase().includes(busca.toLowerCase())
               ).map((user) => (
                 <tr key={user.id}>
-                  <td className="texto-centro">{user.id}</td>
-                  <td>{user.nome}</td>
+                  <td className={styles['texto-centro']}>{user.id}</td>
+                  
+                  {/* Tenta pegar nomeUsuario ou nome */}
+                  <td>{user.nomeUsuario || user.nome}</td> 
+                  
                   <td>{user.cpf}</td>
                   <td>{user.email}</td>
-                  <td className="texto-centro">**********</td>
+                  <td className={styles['texto-centro']}>**********</td>
 
                   {/* BOTÃO EDITAR */}
-                  <td className="texto-centro">
-                    <button className="btn-editar-tabela">
+                  <td className={styles['texto-centro']}>
+                    <button className={styles['btn-editar-tabela']} onClick={() => alert('Edição em breve')}>
                       <IconeEditar />
                     </button>
                   </td>
 
                   {/* BOTÃO EXCLUIR */}
-                  <td className="texto-centro">
-                    <button className="btn-excluir-tabela">
+                  <td className={styles['texto-centro']}>
+                    <button className={styles['btn-excluir-tabela']} onClick={() => handleDelete(user.id)}>
                       <IconeLixo />
                     </button>
                   </td>

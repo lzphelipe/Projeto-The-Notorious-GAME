@@ -1,0 +1,221 @@
+/* 1. LAYOUT GERAL E HEADER */
+
+.layout-admin {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.top-bar {
+  height: 90px;
+  background-color: #FFBE00;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.logo-area {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  transition: 0.2s;
+}
+
+.logo-img:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.top-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-icone {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.btn-icone:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.icone-img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* 2. CONTEÚDO PRINCIPAL (TABELA) */
+
+.main-content-tabela {
+  padding: 40px;
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container-tabela-larga {
+  width: 100%;
+  max-width: 95%;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 0;
+}
+
+/* 3. BARRA DE PESQUISA E BOTÃO NOVO */
+
+.header-conteudo {
+  display: flex;
+  width: 100%;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.barra-pesquisa {
+  width: 60%;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  padding-left: 20px;
+  font-size: 18px;
+  background-color: #d9d9d9;
+  color: #000000;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-novo-usuario {
+  height: 50px;
+  padding: 0 30px;
+  background-color: #222; 
+  color: #FFBE00;           
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;       
+  cursor: pointer;
+  transition: 0.3s;
+  white-space: nowrap;       
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-novo-usuario:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+/* 4. ESTILO DA TABELA (GERAL) */
+
+.tabela-usuarios {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.tabela-usuarios th {
+  background-color: #222;
+  color: #FFBE00;
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.tabela-usuarios td {
+  padding: 20px;
+  font-size: 15px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.tabela-usuarios tbody tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-usuarios tbody tr:hover {
+  background-color: #fff8e1;
+  transform: scale(1.005);
+  transition: 0.2s;
+  cursor: default;
+}
+
+.tabela-usuarios tbody tr:last-of-type td {
+  border-bottom: 2px solid #FFBE00;
+}
+
+.texto-centro {
+  text-align: center !important;
+}
+
+/* 5. BOTÕES DA TABELA */
+
+.btn-editar-tabela {
+  background: #fff8e1;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+.btn-editar-tabela:hover {
+  background-color: #FFBE00;
+  transform: rotate(-15deg);
+}
+
+.btn-excluir-tabela {
+  background: #ffecec;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  margin: 0 auto;
+}
+
+.btn-excluir-tabela:hover {
+  background-color: #ff0000;
+  color: white;
+  transform: rotate(15deg);
+}
