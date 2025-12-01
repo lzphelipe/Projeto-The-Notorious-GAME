@@ -144,35 +144,52 @@
 
 /* Container que segura todos os cards */
 .grade-jogos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsivo */
-    gap: 20px;
-    padding: 20px;
-    width: 100%;
+  display: grid;
+  /* Ajustei o minmax para 250px para o card ficar um pouco mais largo também */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  width: 100%;
 }
 
 /* O cartão individual de cada jogo */
 .card-jogo {
-    background-color: #2a2a2a; /* Fundo escuro */
-    border-radius: 10px;
-    overflow: hidden;
-    color: white;
-    transition: transform 0.2s;
+  background-color: #2a2a2a;
+  border-radius: 15px;
+  overflow: hidden;
+  color: white;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  /* Garante que o card ocupe a altura total da linha (fica tudo alinhado) */
+  height: 100%; 
 }
 
 .card-jogo:hover {
-    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* Aumentei a sombra pra ficar chique */
 }
 
 .img-jogo {
-    width: 100%;
-    height: 150px;
-    object-fit: cover; /* Garante que a imagem não distorça */
+  width: 100%;
+  
+  /* AUMENTAR AQUI: De 150px/180px para 350px (ou mais se quiser maior) */
+  height: 350px; 
+  
+  /* cover: preenche tudo (pode cortar as laterais) */
+  /* contain: mostra inteira (pode sobrar espaço preto) */
+  /* Recomendo 'cover' com 'object-position: top' para focar nos rostos */
+  object-fit: cover; 
+  object-position: top;
 }
 
 .info-jogo {
-    padding: 10px;
-    text-align: center;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Faz essa parte ocupar o resto do card */
+  justify-content: space-between; /* Empurra o botão pro fundo */
+  gap: 10px;
 }
 
 .preco {
