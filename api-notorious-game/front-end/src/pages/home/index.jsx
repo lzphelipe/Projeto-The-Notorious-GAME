@@ -43,11 +43,6 @@ function Home() {
     loadJogos()
   }, [])
 
-  function fazerLogin() {
-    localStorage.removeItem('token')
-    navigate('/')
-  }
-
   function fazerLogout() {
     localStorage.removeItem('token');
     navigate('/');
@@ -58,12 +53,25 @@ function Home() {
     jogo.nomeJogo.toLowerCase().includes(busca.toLowerCase())
   )
 
-  function BotaoLateral({ texto }) {
-    return (
-      <div className="empty-btn">
-        {texto}
-      </div>
-    )
+  function adicionarAoCarrinho(jogo) {
+    const carrinhoSalvo = localStorage.getItem('carrinho');
+    const perfil = localStorage.getItem('perfil');
+    let carrinho = carrinhoSalvo ? JSON.parse(carrinhoSalvo) : [];
+
+    if (perfil === 'ADMIN') {
+      alert("Ação não permitida!\nAdministradores não podem realizar compras.\nPor favor, faça login com uma conta de CLIENTE.");
+      return;
+    }
+
+    const jaExiste = carrinho.find(item => item.idJogo === jogo.idJogo);
+    if (jaExiste) {
+      alert("Esse jogo já está no seu carrinho!");
+      return;
+    }
+
+    carrinho.push(jogo);
+
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
 
   return (
@@ -78,7 +86,7 @@ function Home() {
         </div>
 
         <div className={styles['top-icons']}>
-          <button className={styles['btn-icone']}>
+          <button className={styles['btn-icone']} onClick={() => navigate('/carrinho')} title="Ir para o Carrinho">
             <img src={Carrinho} alt="Carrinho" className={styles['icone-img']} />
           </button>
 
@@ -115,7 +123,7 @@ function Home() {
                   <h3>{jogo.nomeJogo}</h3>
                   <p className={styles['categoria']}>{jogo.categoria.nomeCategoria}</p>
                   <p className={styles['preco']}>R$ {jogo.precoJogo.toFixed(2)}</p>
-                  <button className={styles['btn-comprar']}>Comprar</button>
+                  <button className={styles['btn-comprar']} onClick={() => adicionarAoCarrinho(jogo)}>Comprar</button>
                 </div>
               </div>
             ))}

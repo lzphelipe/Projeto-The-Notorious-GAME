@@ -29,6 +29,6 @@ public class AuthService {
         }
 
         String token = tokenService.generateToken(usuario);
-        return new TokenResponseDTO(token, usuario.getPerfil().toString());
+        return new TokenResponseDTO(token, usuario.getPerfil().toString(), usuario.getIdUsuario());
     }
 }

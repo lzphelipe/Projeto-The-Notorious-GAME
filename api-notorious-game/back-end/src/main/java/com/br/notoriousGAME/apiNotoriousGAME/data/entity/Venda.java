@@ -36,7 +36,7 @@ public class Venda {
         this.usuario = usuario;
         this.dataVenda = LocalDate.now();
         this.precoTotal = BigDecimal.ZERO;
-        this.statusVenda = "PENDENTE";
+        this.statusVenda = "PAGO";
     }
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

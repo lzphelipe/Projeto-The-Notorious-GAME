@@ -10,11 +10,6 @@ function Login() {
 
   const navigate = useNavigate();
 
-  // Função para mudar de tela
-  function irParaCadastro() {
-    navigate('/cadastro'); // Certifique-se que essa rota existe no seu main.jsx
-  }
-
   async function fazerLogin(event) {
     event.preventDefault();
 
@@ -31,13 +26,14 @@ function Login() {
 
       const token = response.data.token;
       const perfil = response.data.perfil;
+      const idUsuario = response.data.idUsuario;
 
       localStorage.setItem('token', token);
       localStorage.setItem('perfil', perfil);
+      localStorage.setItem('idUsuario', idUsuario);
 
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-      alert("Login realizado com sucesso!");
       navigate('/home');
 
     } catch (error) {

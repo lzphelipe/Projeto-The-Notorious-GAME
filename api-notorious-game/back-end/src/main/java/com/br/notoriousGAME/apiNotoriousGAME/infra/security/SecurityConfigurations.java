@@ -33,10 +33,17 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
 
                     req.requestMatchers(HttpMethod.GET, "/usuarios/**").hasRole("ADMIN");
-                    req.requestMatchers(HttpMethod.POST, "/jogos").hasRole("ADMIN");
+
                     req.requestMatchers(HttpMethod.POST, "/categorias").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.POST, "/jogos").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.DELETE, "/jogos/**").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.PUT, "/jogos/**").hasRole("ADMIN");
+
+                    // O Admin pode GERENCIAR vendas (ver todas, atualizar, deletar), mas não criar
+                    req.requestMatchers(HttpMethod.GET, "/vendas/**").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.PUT, "/vendas/**").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.DELETE, "/vendas/**").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.POST, "/vendas").hasRole("CLIENTE");
 
                     req.anyRequest().authenticated();
                 })
