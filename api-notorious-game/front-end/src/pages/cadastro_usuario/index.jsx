@@ -1,9 +1,13 @@
 import { useState } from 'react'
-import './style.css'
+import { useNavigate } from 'react-router-dom'
+import styles from './style.module.css'
 import api from '../../services/api'
 import LogoImg from '../../assets/logo_notorious.png'
 
 function CadastroUsuario() {
+
+  const navigate = useNavigate()
+
   const [formData, setFormData] = useState({
     nomeUsuario: '',
     cpf: '',
@@ -22,7 +26,9 @@ function CadastroUsuario() {
 
       alert('Usuário cadastrado com sucesso!')
 
-      setFormData({ nome: '', cpf: '', email: '', senha: ''})
+      setFormData({ nome: '', cpf: '', email: '', senha: '' })
+
+      navigate('/')
 
     } catch (error) {
       console.error("Erro ao cadastrar:", error)
@@ -31,13 +37,20 @@ function CadastroUsuario() {
   }
 
   return (
-    <div className='container'>
-      
-      <img src={LogoImg} alt="Logo Notorious" className="logo-img" />
+    <div className={styles['container']}>
 
-      <form>
-        <h1>Cadastro de Usuários</h1>
+      <img
+        src={LogoImg}
+        alt="Logo Notorious"
+        className={styles['logo-img']}
+      />
+
+      <form className={styles['form-cadastro']}>
+
+        <h1 className={styles['title']}>Cadastro de Usuários</h1>
+
         <input
+          className={styles['input-cadastro']}
           placeholder='Nome'
           name='nomeUsuario'
           type='text'
@@ -46,6 +59,7 @@ function CadastroUsuario() {
         />
 
         <input
+          className={styles['input-cadastro']}
           placeholder='CPF'
           name='cpf'
           type='text'
@@ -55,6 +69,7 @@ function CadastroUsuario() {
         />
 
         <input
+          className={styles['input-cadastro']}
           placeholder='E-mail'
           name='email'
           type='email'
@@ -63,6 +78,7 @@ function CadastroUsuario() {
         />
 
         <input
+          className={styles['input-cadastro']}
           placeholder='Senha'
           name='senha'
           type='password'
@@ -70,7 +86,11 @@ function CadastroUsuario() {
           onChange={handleInputChange}
         />
 
-        <button type='button' onClick={cadastrarUsuario}>
+        <button
+          type='button'
+          onClick={cadastrarUsuario}
+          className={styles['btn-cadastro']}
+        >
           Cadastrar
         </button>
       </form>

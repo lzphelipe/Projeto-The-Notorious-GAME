@@ -10,6 +10,11 @@ function Login() {
 
   const navigate = useNavigate();
 
+  // Função para mudar de tela
+  function irParaCadastro() {
+    navigate('/cadastro'); // Certifique-se que essa rota existe no seu main.jsx
+  }
+
   async function fazerLogin(event) {
     event.preventDefault();
 
@@ -32,8 +37,7 @@ function Login() {
 
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-      alert("Login realizado com sucesso: " + response.data);
-
+      alert("Login realizado com sucesso!");
       navigate('/home');
 
     } catch (error) {
@@ -48,7 +52,7 @@ function Login() {
       <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
 
       <form className={styles['form-login']}>
-        <h1>Login</h1>
+        <h1 className={styles['title']}>Login</h1>
 
         <input
           className={styles['input-login']}
@@ -75,6 +79,18 @@ function Login() {
         >
           Entrar
         </button>
+
+        <div className={styles['container-cadastro']}>
+          <p>Não tem uma conta?</p>
+          <button 
+            type="button" 
+            onClick={() => navigate ('/cadastro')} 
+            className={styles['btn-link-cadastro']}
+          >
+            Cadastre-se
+          </button>
+        </div>
+
       </form>
     </div>
   )

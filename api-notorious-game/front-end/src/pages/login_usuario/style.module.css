@@ -64,3 +64,32 @@
 .btn-login:hover {
   opacity: 0.8;
 }
+
+/* Container para alinhar o texto e o botão */
+.container-cadastro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Espaço entre a pergunta e o botão */
+  margin-top: 15px; /* Afasta do botão Entrar */
+  font-size: 14px;
+  color: #000;
+}
+
+/* O Botão que parece um Link */
+.btn-link-cadastro {
+  background: transparent;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline; /* Sublinhado para parecer link */
+  padding: 0;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.btn-link-cadastro:hover {
+  color: #333; /* Fica levemente cinza ao passar o mouse */
+  transform: scale(1.05);
+}
