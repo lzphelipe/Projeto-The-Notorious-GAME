@@ -105,7 +105,7 @@ function GerenciarJogos() {
               </div>
 
               <div className={styles['acoes-jogo']}>
-                  <button className={styles['btn-acao']} onClick={() => alert('Editar ainda não implementado')}>
+                  <button className={styles['btn-acao']} onClick={() => navigate('/jogos/editar/:id')}>
                     <IconeEditar />
                   </button>
                   <button className={styles['btn-acao']} onClick={() => handleDelete(jogo.idJogo || jogo.id)}>

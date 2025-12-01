@@ -11,6 +11,7 @@ import GerenciarUsuarios from './pages/gerenciar_usuarios'
 import CadastroUsuario from './pages/cadastro_usuario'
 import GerenciarJogos from './pages/gerenciar_jogos'
 import CadastroJogo from './pages/cadastro_jogo'
+import EditarJogo from './pages/editar_jogo'
 import CadastroCategoria from './pages/cadastro_categoria'
 
 import './index.css'
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/cadastro" element={<CadastroUsuario />} />
         <Route path="/jogos" element={<GerenciarJogos />} />
         <Route path="/jogos/novo" element={<CadastroJogo />} />
+        <Route path="/jogos/editar/:id" element={<EditarJogo />} />
         <Route path="/categorias/nova" element={<CadastroCategoria />} />
       </Routes>
     </BrowserRouter>
