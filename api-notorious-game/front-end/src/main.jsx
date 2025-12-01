@@ -10,6 +10,7 @@ import EditarVenda from './pages/editar_venda'
 import GerenciarUsuarios from './pages/gerenciar_usuarios'
 import CadastroUsuario from './pages/cadastro_usuario'
 import EditarUsuarios from './pages/editar_usuario'
+import NovoUsuario from './pages/novo_usuario'
 import GerenciarJogos from './pages/gerenciar_jogos'
 import CadastroJogo from './pages/cadastro_jogo'
 import EditarJogo from './pages/editar_jogo'
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/usuarios" element={<GerenciarUsuarios />} />
         <Route path="/cadastro" element={<CadastroUsuario />} />
         <Route path="/usuario/editar/:id" element={<EditarUsuarios />} />
+        <Route path="/novo-usuario" element={<NovoUsuario />} />
         <Route path="/jogos" element={<GerenciarJogos />} />
         <Route path="/jogos/novo" element={<CadastroJogo />} />
         <Route path="/jogos/editar/:id" element={<EditarJogo />} />

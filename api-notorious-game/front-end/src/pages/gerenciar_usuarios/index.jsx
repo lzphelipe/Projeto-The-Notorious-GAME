@@ -79,7 +79,7 @@ function GerenciarUsuarios() {
             {/* BOTÃO NOVO USUÁRIO */}
             <button 
               className={styles['btn-novo-usuario']}
-              onClick={() => alert('Novo Usuário ainda não foi emplementado!')} 
+              onClick={() => navigate('/novo-usuario')} 
             >
               + Novo Usuário
             </button>
