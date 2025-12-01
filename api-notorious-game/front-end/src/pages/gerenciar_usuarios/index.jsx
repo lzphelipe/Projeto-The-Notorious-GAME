@@ -116,7 +116,7 @@ function GerenciarUsuarios() {
 
                   {/* BOTÃO EDITAR */}
                   <td className={styles['texto-centro']}>
-                    <button className={styles['btn-editar-tabela']} onClick={() => alert('Edição em breve')}>
+                    <button className={styles['btn-editar-tabela']} onClick={() => navigate('/usuario/editar/:id')}>
                       <IconeEditar />
                     </button>
                   </td>
