@@ -1,34 +1,60 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import api from '../../services/api'
 import styles from './style.module.css'
+
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
 
 function EditarVenda() {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    idUsuario: "2",
-    dataVenda: "25/07/2025", 
-    statusVenda: "PENDENTE",
-    produtos: [
-      { idJogo: 3 },
-      { idJogo: 4 }
-    ]
-  })
+    idUsuario: "",
+    dataVenda: "",
+    statusVenda: "PAGO",
+    produtos: []
+  });
 
   const [novoIdJogo, setNovoIdJogo] = useState('')
+
+  useEffect(() => {
+    async function loadVenda() {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await api.get(`/vendas/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const venda = response.data;
+
+        setForm({
+          idUsuario: venda.idUsuario || "ID não veio",
+          dataVenda: venda.dataVenda,
+          statusVenda: venda.statusVenda,
+          produtos: venda.produtos || []
+        });
+
+      } catch (error) {
+        alert("Erro ao carregar venda. Verifique o ID.");
+        navigate('/vendas');
+      }
+    }
+    loadVenda();
+  }, [id])
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   function adicionarJogo() {
-    if (!novoIdJogo) return; 
+    if (!novoIdJogo) return;
 
     setForm({
       ...form,
       produtos: [...form.produtos, { idJogo: Number(novoIdJogo) }]
     })
-    setNovoIdJogo('') 
+    setNovoIdJogo('')
   }
 
   function removerJogo(indexParaRemover) {
@@ -36,13 +62,34 @@ function EditarVenda() {
     setForm({ ...form, produtos: novaLista })
   }
 
+  async function salvarAlteracoes() {
+    const token = localStorage.getItem('token');
+
+    const body = {
+      idUsuario: Number(form.idUsuario),
+      dataVenda: form.dataVenda,
+      statusVenda: form.statusVenda,
+      produtos: form.produtos.map(produtos => ({ idJogo: produtos.idJogo }))
+    };
+    try {
+      await api.put(`/vendas/${id}`, body, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert("Venda atualizada com sucesso!");
+      navigate('/vendas');
+    } catch (error) {
+      console.error("Erro no alteração", error);
+      alert("Erro ao atualizar. Verifique a data e os IDs.");
+    }
+  }
+
   return (
     <div className={styles['layout-admin']}>
 
       {/* HEADER */}
       <header className={styles['top-bar']}>
-        <button className={styles['logo-area']}> 
-            <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} /> 
+        <button className={styles['logo-area']} onClick={() => navigate('/home')}>
+          <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
         </button>
         <div className={styles['top-icons']}>
           <button className={styles['btn-icone']}> <img src={Perfil} className={styles['icone-img']} /> </button>
@@ -56,7 +103,7 @@ function EditarVenda() {
 
           {/* LADO ESQUERDO */}
           <div className={styles['form-esquerda']}>
-            <h2 className={styles['titulo-amarelo']}>Dados da Venda</h2>
+            <h2 className={styles['titulo-amarelo']}>Dados da Venda #{id}</h2>
 
             <label className={styles['label-form']}>ID do Usuário</label>
             <input
@@ -64,8 +111,8 @@ function EditarVenda() {
               value={form.idUsuario}
               onChange={handleChange}
               placeholder="ID Usuário"
-              // Adicionei a classe de input padrão se não tiver específica
-              className={styles['input-select']} 
+              className={styles['input-select']}
+              type='long'
             />
 
             <label className={styles['label-form']}>Data da Venda</label>
@@ -85,7 +132,7 @@ function EditarVenda() {
               className={styles['input-select']}
             >
               <option value="PENDENTE">PENDENTE</option>
-              <option value="CONCLUIDO">PAGO</option>
+              <option value="PAGO">PAGO</option>
               <option value="CANCELADO">CANCELADO</option>
             </select>
           </div>
@@ -106,9 +153,9 @@ function EditarVenda() {
                 onChange={(e) => setNovoIdJogo(e.target.value)}
                 className={styles['input-mini']}
               />
-              <button 
-                type="button" 
-                onClick={adicionarJogo} 
+              <button
+                type="button"
+                onClick={adicionarJogo}
                 className={styles['btn-add-mini']}
               >
                 +
@@ -117,11 +164,11 @@ function EditarVenda() {
 
             {/* Lista dos IDs adicionados */}
             <div className={styles['lista-ids-jogos']}>
-              {form.produtos.map((prod, index) => (
+              {form.produtos && form.produtos.map((prod, index) => (
                 <div key={index} className={styles['chip-jogo']}>
-                  <span>ID Jogo: <strong>{prod.idJogo}</strong></span>
-                  <button 
-                    onClick={() => removerJogo(index)} 
+                  <span>{prod.nomeJogo ? prod.nomeJogo : `ID: ${prod.idJogo}`}</span>
+                  <button
+                    onClick={() => removerJogo(index)}
                     className={styles['btn-remove-mini']}
                   >
                     x
@@ -132,8 +179,8 @@ function EditarVenda() {
 
             {/* Botões de Salvar/Cancelar */}
             <div className={styles['grupo-botoes']} style={{ marginTop: 'auto', paddingTop: '30px' }}>
-              <button className={styles['btn-cancelar']}>Cancelar</button>
-              <button className={styles['btn-salvar']}>Salvar Alterações</button>
+              <button className={styles['btn-cancelar']} onClick={() => navigate('/vendas')}>Cancelar</button>
+              <button className={styles['btn-salvar']} onClick={salvarAlteracoes}>Salvar Alterações</button>
             </div>
           </div>
 

@@ -5,10 +5,11 @@ import com.br.notoriousGAME.apiNotoriousGAME.data.entity.VendaProduto;
 import java.math.BigDecimal;
 
 public record VendaProdutoResponseDTO(
+        Long idJogo,
         String nomeJogo,
         BigDecimal precoPago
 ) {
     public VendaProdutoResponseDTO(VendaProduto produto){
-        this(produto.getJogo().getNomeJogo(), produto.getPrecoMomento());
+        this(produto.getJogo().getIdJogo(), produto.getJogo().getNomeJogo(), produto.getPrecoMomento());
     }
 }

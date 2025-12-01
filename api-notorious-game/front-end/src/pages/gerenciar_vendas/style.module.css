@@ -233,7 +233,7 @@
 }
 
 .status-badge.pendente { background-color: #f39c12; }
-.status-badge.concluido { background-color: #27ae60; }
+.status-badge.pago { background-color: #27ae60; }
 .status-badge.cancelado { background-color: #c0392b; }
 
 /* Linha Expandida */

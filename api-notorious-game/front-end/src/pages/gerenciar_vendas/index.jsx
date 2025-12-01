@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
-import styles from './style.module.css' // Importando o módulo
+import { useNavigate } from 'react-router-dom'
+import api from '../../services/api'
+import styles from './style.module.css'
+
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
-import api from '../../services/api' // Supondo que api esteja aqui
+
 
 const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
 const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>
@@ -14,6 +17,7 @@ function GerenciarVendas() {
   const [vendas, setVendas] = useState([])
   const [busca, setBusca] = useState('')
   const [linhaExpandida, setLinhaExpandida] = useState(null)
+  const navigate = useNavigate()
 
   async function carregarVendas() {
     const token = localStorage.getItem('token');
@@ -24,7 +28,6 @@ function GerenciarVendas() {
       setVendas(response.data);
     } catch (error) {
       console.error("Erro ao buscar vendas", error);
-      alert("Erro ao carregar vendas. Verifique se você é ADMIN.");
     }
   }
 
@@ -36,35 +39,20 @@ function GerenciarVendas() {
     if (confirm("Tem certeza que deseja excluir/cancelar esta venda?")) {
       const token = localStorage.getItem('token');
       try {
-        await api.delete(`/venda/${idVenda}`, {
+        await api.delete(`/vendas/${idVenda}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         alert("Venda excluída/cancelada!");
         carregarVendas();
       } catch (error) {
+        console.error(error);
         alert("Erro ao excluir venda.");
       }
     }
   }
 
-  async function handleUpdate(idVenda) {
-    const novoStatus = prompt("Digite o novo status (PAGO, PENDENTE, CANCELADO):");
-    if (novoStatus) {
-      const token = localStorage.getItem('token');
-      try {
-        await api.put(`/venda/${idVenda}`,
-          {
-            statusVenda: novoStatus.toUpperCase()
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-        alert("Status atualizado!");
-        carregarVendas();
-      } catch (error) {
-        alert("Erro ao atualizar. Verifique se o status é válido.");
-      }
-    }
+  function irParaEdicao(idVenda) {
+    navigate(`/vendas/editar/${idVenda}`);
   }
 
   const toggleLinha = (id) => {
@@ -92,7 +80,7 @@ function GerenciarVendas() {
     <div className={styles['layout-admin']}>
 
       <header className={styles['top-bar']}>
-        <button className={styles['logo-area']}>
+        <button className={styles['logo-area']} onClick={() => navigate('/home')}>
           <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
         </button>
         <div className={styles['top-icons']}>
@@ -152,7 +140,7 @@ function GerenciarVendas() {
 
                     {/* Botão EDITAR */}
                     <td className={styles['texto-centro']}>
-                      <button className={styles['btn-editar-tabela']} onClick={() => handleUpdate(venda.idVenda)}>
+                      <button className={styles['btn-editar-tabela']} onClick={() => irParaEdicao(venda.idVenda)}>
                         <IconeEditar />
                       </button>
                     </td>
