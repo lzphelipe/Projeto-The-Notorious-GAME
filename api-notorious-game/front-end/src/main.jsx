@@ -7,6 +7,7 @@ import Home from './pages/home'
 import CarrinhoCompra from './pages/carrinho_compra'
 import GerenciarVendas from './pages/gerenciar_vendas'
 import EditarVenda from './pages/editar_venda'
+import CadastrarVenda from './pages/cadastro_venda'
 import GerenciarUsuarios from './pages/gerenciar_usuarios'
 import CadastroUsuario from './pages/cadastro_usuario'
 import EditarUsuarios from './pages/editar_usuario'
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/carrinho" element={<CarrinhoCompra />} />
         <Route path="/vendas" element={<GerenciarVendas />} />
         <Route path="/vendas/editar/:id" element={<EditarVenda />} />
+        <Route path="/cadastro-venda" element={<CadastrarVenda />} />
         <Route path="/usuarios" element={<GerenciarUsuarios />} />
         <Route path="/cadastro" element={<CadastroUsuario />} />
         <Route path="/usuario/editar/:id" element={<EditarUsuarios />} />
