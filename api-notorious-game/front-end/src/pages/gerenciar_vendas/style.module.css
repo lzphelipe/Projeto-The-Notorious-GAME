@@ -1,13 +1,11 @@
 /* 1. LAYOUT GERAL E HEADER */
 
-/* Fundo da página inteira */
 .layout-admin {
   min-height: 100vh;
   width: 100%;
   background-color: #ffffff;
 }
 
-/* Barra Amarela do Topo */
 .top-bar {
   height: 90px;
   background-color: #FFBE00;
@@ -17,7 +15,6 @@
   padding: 0 30px;
 }
 
-/* Área da Logo */
 .logo-area {
   background: transparent;
   border: none;
@@ -40,7 +37,6 @@
   transform: scale(1.1);
 }
 
-/* Ícones da Direita (Carrinho/Perfil) */
 .top-icons {
   display: flex;
   gap: 20px;
@@ -68,9 +64,8 @@
   object-fit: contain;
 }
 
-/* 2. CONTEÚDO PRINCIPAL (CONTAINER) */
+/* 2. CONTEÚDO PRINCIPAL (TABELA) */
 
-/* Fundo cinza com gradiente onde fica a tabela */
 .main-content-tabela {
   padding: 40px;
   width: 100%;
@@ -81,10 +76,9 @@
   align-items: flex-start;
 }
 
-/* O "Card" branco que segura a tabela (Versão Larga 95%) */
 .container-tabela-larga {
   width: 100%;
-  max-width: 95%; /* Bem largo para caber muitas colunas */
+  max-width: 95%; /* 95% da tela */
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -99,7 +93,7 @@
   width: 100%;
   margin-bottom: 30px;
   padding-top: 20px;
-  justify-content: center; /* Centraliza a barra */
+  justify-content: center;
 }
 
 .barra-pesquisa {
@@ -115,7 +109,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 4. ESTILO DA TABELA (GERAL) */
+/* 4. ESTILO DA TABELA */
 
 .tabela-usuarios {
   width: 100%;
@@ -124,7 +118,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Cabeçalho Preto e Amarelo */
 .tabela-usuarios th {
   background-color: #222;
   color: #FFBE00;
@@ -137,7 +130,6 @@
   border: none;
 }
 
-/* Células da Tabela */
 .tabela-usuarios td {
   padding: 20px;
   font-size: 15px;
@@ -146,32 +138,28 @@
   vertical-align: middle;
 }
 
-/* Efeito Zebrado (Linhas pares) */
 .tabela-usuarios tbody tr:nth-of-type(even) {
   background-color: #f9f9f9;
 }
 
-/* Efeito Hover na linha */
 .tabela-usuarios tbody tr:hover {
-  background-color: #fff8e1; /* Amarelo clarinho */
+  background-color: #fff8e1;
   transform: scale(1.005);
   transition: 0.2s;
   cursor: default;
 }
 
-/* Remove a borda da última linha e põe o detalhe amarelo */
 .tabela-usuarios tbody tr:last-of-type td {
   border-bottom: 2px solid #FFBE00;
 }
 
-/* Utilitário para centralizar texto (ID, Status, Ações) */
 .texto-centro {
   text-align: center !important;
 }
 
 /* 5. BOTÕES DA TABELA */
 
-/* Botão Editar (Amarelo) */
+/* Botão Editar */
 .btn-editar-tabela {
   background: #fff8e1;
   border-radius: 50%;
@@ -191,7 +179,7 @@
   transform: rotate(-15deg);
 }
 
-/* Botão Excluir (Vermelho) */
+/* Botão Excluir */
 .btn-excluir-tabela {
   background: #ffecec;
   border-radius: 50%;
@@ -208,11 +196,11 @@
 
 .btn-excluir-tabela:hover {
   background-color: #ff0000;
-  color: white; /* Muda a cor do ícone pra branco */
+  color: white;
   transform: rotate(15deg);
 }
 
-/* Botão Setinha (Expandir Detalhes) */
+/* Botão Setinha (Ver Detalhes) */
 .btn-setinha {
   background: transparent;
   border: none;
@@ -232,7 +220,7 @@
 
 /* 6. ESPECÍFICO DE VENDAS (BADGES E DETALHES) */
 
-/* Badges de Status (Pílulas Coloridas) */
+/* Badges de Status */
 .status-badge {
   padding: 5px 15px;
   border-radius: 20px;
@@ -248,7 +236,7 @@
 .status-badge.concluido { background-color: #27ae60; }
 .status-badge.cancelado { background-color: #c0392b; }
 
-/* Linha Expandida (Pai) */
+/* Linha Expandida */
 .linha-ativa {
   background-color: #f0f0f0 !important;
   font-weight: bold;
@@ -261,7 +249,7 @@
   border-bottom: 2px solid #ccc;
 }
 
-/* Container interno dos detalhes */
+/* Conteúdo interno dos detalhes */
 .detalhes-container {
   padding: 20px 40px;
   text-align: left;

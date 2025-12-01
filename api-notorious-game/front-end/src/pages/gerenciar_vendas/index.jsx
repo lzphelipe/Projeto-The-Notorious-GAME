@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import './style.css'
+import styles from './style.module.css' // Importando o módulo
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
+import api from '../../services/api' // Supondo que api esteja aqui
 
 const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
 const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>
@@ -36,12 +37,12 @@ function GerenciarVendas() {
       const token = localStorage.getItem('token');
       try {
         await api.delete(`/venda/${idVenda}`, {
-          headers: { Authorization: `Bearer ${token}`}
+          headers: { Authorization: `Bearer ${token}` }
         });
         alert("Venda excluída/cancelada!");
         carregarVendas();
       } catch (error) {
-        alert("Erro ao excluir venda.");   
+        alert("Erro ao excluir venda.");
       }
     }
   }
@@ -52,12 +53,12 @@ function GerenciarVendas() {
       const token = localStorage.getItem('token');
       try {
         await api.put(`/venda/${idVenda}`,
-        {
-          statusVenda: novoStatus.toUpperCase()
-        },
-        {
-          headers: { Authorization: `Bearer ${token}`}
-        });
+          {
+            statusVenda: novoStatus.toUpperCase()
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          });
         alert("Status atualizado!");
         carregarVendas();
       } catch (error) {
@@ -66,63 +67,64 @@ function GerenciarVendas() {
     }
   }
 
-  // Função para abrir/fechar a linha
   const toggleLinha = (id) => {
     if (linhaExpandida === id) {
-      setLinhaExpandida(null) 
+      setLinhaExpandida(null)
     } else {
-      setLinhaExpandida(id) 
+      setLinhaExpandida(id)
     }
   }
 
   const formatarPreco = (valor) => {
-    if(valor === undefined || valor == null) return "R$ 0,00";
+    if (valor === undefined || valor == null) return "R$ 0,00";
     return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
   const formatarData = (data) => {
-    if(!data) return "-";
+    if (!data) return "-";
+    // Se já vier formatada ou não tiver traço, retorna direto
+    if (!data.includes('-')) return data;
     const [ano, mes, dia] = data.split('-');
     return `${dia}/${mes}/${ano}`;
   }
 
   return (
-    <div className="layout-admin">
+    <div className={styles['layout-admin']}>
 
-      <header className="top-bar">
-        <button className="logo-area">
-          <img src={LogoImg} alt="Logo Notorious" className="logo-img" />
+      <header className={styles['top-bar']}>
+        <button className={styles['logo-area']}>
+          <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
         </button>
-        <div className="top-icons">
-          <button className='btn-icone'> <img src={Perfil} className="icone-img" /> </button>
+        <div className={styles['top-icons']}>
+          <button className={styles['btn-icone']}> <img src={Perfil} className={styles['icone-img']} /> </button>
         </div>
       </header>
 
-      <main className="main-content-tabela">
+      <main className={styles['main-content-tabela']}>
 
-        <div className="container-tabela-larga">
+        <div className={styles['container-tabela-larga']}>
 
-          <div className="header-conteudo">
+          <div className={styles['header-conteudo']}>
             <input
               type="text"
               placeholder="Pesquisar cliente..."
-              className="barra-pesquisa"
+              className={styles['barra-pesquisa']}
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
             />
           </div>
 
-          <table className="tabela-usuarios">
+          <table className={styles['tabela-usuarios']}>
             <thead>
               <tr>
-                <th className="texto-centro">ID</th>
+                <th className={styles['texto-centro']}>ID</th>
                 <th>Cliente</th>
                 <th>Data</th>
                 <th>Valor Total</th>
-                <th className="texto-centro">Status</th>
-                <th className="texto-centro">Editar</th>
-                <th className="texto-centro">Excluir</th>
-                <th className="texto-centro">Ver</th> {/* Coluna da Setinha */}
+                <th className={styles['texto-centro']}>Status</th>
+                <th className={styles['texto-centro']}>Editar</th>
+                <th className={styles['texto-centro']}>Excluir</th>
+                <th className={styles['texto-centro']}>Ver</th>
               </tr>
             </thead>
 
@@ -132,35 +134,40 @@ function GerenciarVendas() {
               ).map((venda) => (
                 <>
                   {/* LINHA PRINCIPAL */}
-                  <tr key={venda.idVenda} className={linhaExpandida === venda.idVenda ? "linha-ativa" : ""}>
-                    <td className="texto-centro">{venda.idVenda}</td>
+                  <tr
+                    key={venda.idVenda}
+                    className={linhaExpandida === venda.idVenda ? styles['linha-ativa'] : ""}
+                  >
+                    <td className={styles['texto-centro']}>{venda.idVenda}</td>
                     <td>{venda.nomePessoa}</td>
                     <td>{formatarData(venda.dataVenda)}</td>
-                    <td style={{fontWeight: 'bold'}}>{formatarPreco(venda.precoTotal)}</td>
-                    
-                    <td className="texto-centro">
-                      <span className={`status-badge ${venda.statusVenda.toLowerCase()}`}>
+                    <td style={{ fontWeight: 'bold' }}>{formatarPreco(venda.precoTotal)}</td>
+
+                    <td className={styles['texto-centro']}>
+                      {/* Lógica para combinar a classe base do badge com a cor específica */}
+                      <span className={`${styles['status-badge']} ${styles[venda.statusVenda.toLowerCase()]}`}>
                         {venda.statusVenda}
                       </span>
                     </td>
 
-                    {/* Botão EDITAR (Agora no lugar dos detalhes) */}
-                    <td className="texto-centro">
-                      <button className="btn-editar-tabela" onClick={() => handleUpdate(venda.idVenda)}>
+                    {/* Botão EDITAR */}
+                    <td className={styles['texto-centro']}>
+                      <button className={styles['btn-editar-tabela']} onClick={() => handleUpdate(venda.idVenda)}>
                         <IconeEditar />
                       </button>
                     </td>
 
-                    <td className="texto-centro">
-                      <button className="btn-excluir-tabela" onClick={() => handleDelete(venda.idVenda)}>
+                    {/* Botão EXCLUIR */}
+                    <td className={styles['texto-centro']}>
+                      <button className={styles['btn-excluir-tabela']} onClick={() => handleDelete(venda.idVenda)}>
                         <IconeLixo />
                       </button>
                     </td>
 
-                    {/* Botão da SETINHA (Toggle) */}
-                    <td className="texto-centro">
-                      <button 
-                        className="btn-setinha" 
+                    {/* Botão da SETINHA */}
+                    <td className={styles['texto-centro']}>
+                      <button
+                        className={styles['btn-setinha']}
                         onClick={() => toggleLinha(venda.idVenda)}
                       >
                         {linhaExpandida === venda.idVenda ? <SetaCima /> : <SetaBaixo />}
@@ -168,18 +175,18 @@ function GerenciarVendas() {
                     </td>
                   </tr>
 
-                  {/* LINHA DE DETALHES (Só aparece se o ID bater) */}
+                  {/* LINHA DE DETALHES */}
                   {linhaExpandida === venda.idVenda && (
-                    <tr className="linha-detalhes">
-                      {/* colSpan="8" faz essa célula ocupar a largura toda da tabela */}
+                    <tr className={styles['linha-detalhes']}>
                       <td colSpan="8">
-                        <div className="detalhes-container">
+                        <div className={styles['detalhes-container']}>
                           <h4>Itens do Pedido:</h4>
                           <ul>
                             {venda.produtos && venda.produtos.map((prod, index) => (
                               <li key={index}>
-                                <span>{prod.nomeJogo}</span>
-                                <strong>{formatarPreco(prod.precoPago)}</strong>
+                                {/* Verifica se o objeto tem nomeJogo, senão tenta adaptar */}
+                                <span>{prod.nomeJogo || "Produto sem nome"}</span>
+                                <strong>{formatarPreco(prod.precoPago || prod.precoJogo)}</strong>
                               </li>
                             ))}
                           </ul>
