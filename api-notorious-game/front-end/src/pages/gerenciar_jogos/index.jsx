@@ -1,79 +1,116 @@
-import { useState } from 'react'
-import './style.css'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from './style.module.css' 
+import api from '../../services/api'
+
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
-import Carrinho from '../../assets/carrinho-de-compras.png'
 
-// Ícones de Admin (Pode substituir por imagens depois se quiser)
-// Se tiver imagens, importe: import Lapis from '../../assets/lapis.png'
-const IconeEditar = () => <span>✏️</span>
-const IconeLixo = () => <span>🗑️</span>
+const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>
+const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
 
 function GerenciarJogos() {
-  // --- SIMULAÇÃO DE PERFIL ---
-  // Mude para false para ver como fica para um usuário comum
-  const isAdmin = true
+  const navigate = useNavigate()
+  const [jogos, setJogos] = useState([])
 
-  const [jogos, setJogos] = useState([
-    { id: 1, nome: 'CyberPunk 2077', preco: '199,90', imagem: 'https://via.placeholder.com/100' },
-    { id: 2, nome: 'Silent Hill 2', preco: '259,90', imagem: 'https://via.placeholder.com/100' },
-    {
-      id: 3, nome: 'Grand Theft Auto V', preco: '72,90', imagem: 'https://via.placeholder.com/100'
+  // Função para buscar jogos do Banco de Dados
+  async function carregarJogos() {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await api.get('/jogos', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      setJogos(response.data)
+    } catch (error) {
+      console.error("Erro ao buscar jogos", error)
+      alert("Erro ao carregar lista de jogos.")
     }
-  ])
+  }
+
+  // Carrega assim que a tela abre
+  useEffect(() => {
+    carregarJogos()
+  }, [])
+
+  // Função de Excluir
+  async function handleDelete(id) {
+    if (confirm("Tem certeza que deseja excluir este jogo?")) {
+      const token = localStorage.getItem('token');
+      try {
+        await api.delete(`/jogos/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        alert("Jogo excluído com sucesso!")
+        carregarJogos() // Recarrega a lista
+      } catch (error) {
+        alert("Erro ao excluir jogo.")
+      }
+    }
+  }
 
   return (
-    <div className="layout-admin">
+    <div className={styles['layout-admin']}>
 
-      {/* 1. HEADER AMARELO */}
-      <header className="top-bar">
-        <button className="logo-area"> <img src={LogoImg} alt="Logo Notorious" className="logo-img" /> </button>
-        <div className="top-icons">
-          <button className='btn-icone'> <img src={Carrinho} className="icone-img" /> </button>
-          <button className='btn-icone'> <img src={Perfil} className="icone-img" /> </button>
+      {/* HEADER */}
+      <header className={styles['top-bar']}>
+        <div className={styles['logo-area']} onClick={() => navigate('/home')}> 
+            <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} /> 
+        </div>
+        <div className={styles['top-icons']}>
+          <button className={styles['btn-icone']} onClick={() =>navigate('/')}> <img src={Perfil} className={styles['icone-img']} /> </button>
         </div>
       </header>
 
-      {isAdmin && (
-        <div className="container-botoes-topo">
-          {/* Esquerda */}
-          <button className="btn-adicionar-jogo">Adicionar Jogo</button>
+      {/* BOTOES TOPO (Com navegação) */}
+      <div className={styles['container-botoes-topo']}>
+        {/* Esquerda */}
+        <button 
+          className={styles['btn-adicionar-jogo']}
+          onClick={() => navigate('/jogos/novo')}
+        >
+          Adicionar Jogo
+        </button>
 
-          {/* Direita (O Novo Botão) */}
-          <button className="btn-adicionar-categoria">Nova Categoria</button>
-        </div>
-      )}
+        {/* Direita */}
+        <button 
+          className={styles['btn-adicionar-categoria']}
+          onClick={() => navigate('/categorias/nova')} 
+        >
+          Nova Categoria
+        </button>
+      </div>
 
-      {/* 2. ÁREA DE CONTEÚDO */}
-      <main className="main-content">
+      {/* ÁREA DE CONTEÚDO */}
+      <main className={styles['main-content']}>
 
-        {/* 3. O GRANDE CONTAINER PRETO */}
-        <div className="black-container">
+        {/* LISTA DE JOGOS */}
+        <div className={styles['black-container']}>
 
           {jogos.map(jogo => (
-            <div key={jogo.id} className="card-cinza">
+            <div key={jogo.idJogo || jogo.id} className={styles['card-cinza']}>
 
-              {/* Lado Esquerdo: Imagem */}
-              <img src={jogo.imagem} alt={jogo.nome} className="img-jogo" />
+              {/* Imagem (Trata caso venha do back ou seja local) */}
+              <img 
+                src={jogo.urlImagem || jogo.imagem} 
+                alt={jogo.nomeJogo || jogo.nome} 
+                className={styles['img-jogo']} 
+              />
 
-              {/* Meio: Informações */}
-              <div className="info-jogo">
-                <h3>{jogo.nome}</h3>
-                <p className="preco">{jogo.preco}</p>
+              <div className={styles['info-jogo']}>
+                <h3>{jogo.nomeJogo || jogo.nome}</h3>
+                <p className={styles['preco']}>
+                    {/* Formata para R$ */}
+                    R$ {Number(jogo.precoJogo || jogo.preco).toFixed(2).replace('.', ',')}
+                </p>
               </div>
 
-              {/* Lado Direito: AÇÕES (A Lógica Condicional) */}
-              <div className="acoes-jogo">
-                {isAdmin ? (
-                  // SE FOR ADMIN: Vê Editar e Excluir
-                  <>
-                    <button className="btn-acao"><IconeEditar /></button>
-                    <button className="btn-acao"><IconeLixo /></button>
-                  </>
-                ) : (
-                  // SE NÃO FOR ADMIN: Vê Comprar
-                  <button className="btn-comprar-user">Comprar</button>
-                )}
+              <div className={styles['acoes-jogo']}>
+                  <button className={styles['btn-acao']} onClick={() => alert('Editar ainda não implementado')}>
+                    <IconeEditar />
+                  </button>
+                  <button className={styles['btn-acao']} onClick={() => handleDelete(jogo.idJogo || jogo.id)}>
+                    <IconeLixo />
+                  </button>
               </div>
 
             </div>
