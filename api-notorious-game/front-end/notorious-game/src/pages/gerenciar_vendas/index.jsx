@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './style.css'
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
@@ -10,34 +10,61 @@ const SetaCima = () => <span>▲</span>
 
 function GerenciarVendas() {
 
-  const [vendas, setVendas] = useState([
-    {
-      idVenda: 1,
-      nomePessoa: "Sr. Cabeça de batata",
-      dataVenda: "2025-07-25",
-      precoTotal: 369.80,
-      statusVenda: "PENDENTE",
-      produtos: [
-        { nomeJogo: "Grand Theft Auto V", precoPago: 69.90 },
-        { nomeJogo: "FIFA 24", precoPago: 299.90 }
-      ]
-    },
-    {
-      idVenda: 2,
-      nomePessoa: "Woody Toy",
-      dataVenda: "2025-07-24",
-      precoTotal: 120.00,
-      statusVenda: "CONCLUIDO",
-      produtos: [
-        { nomeJogo: "Minecraft", precoPago: 120.00 }
-      ]
-    },
-  ])
-
+  const [vendas, setVendas] = useState([])
   const [busca, setBusca] = useState('')
-  
-  // ESTADO NOVO: Guarda o ID da linha que está aberta (null = nenhuma)
   const [linhaExpandida, setLinhaExpandida] = useState(null)
+
+  async function carregarVendas() {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await api.get('/vendas', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setVendas(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar vendas", error);
+      alert("Erro ao carregar vendas. Verifique se você é ADMIN.");
+    }
+  }
+
+  useEffect(() => {
+    carregarVendas();
+  }, [])
+
+  async function handleDelete(idVenda) {
+    if (confirm("Tem certeza que deseja excluir/cancelar esta venda?")) {
+      const token = localStorage.getItem('token');
+      try {
+        await api.delete(`/venda/${idVenda}`, {
+          headers: { Authorization: `Bearer ${token}`}
+        });
+        alert("Venda excluída/cancelada!");
+        carregarVendas();
+      } catch (error) {
+        alert("Erro ao excluir venda.");   
+      }
+    }
+  }
+
+  async function handleUpdate(idVenda) {
+    const novoStatus = prompt("Digite o novo status (PAGO, PENDENTE, CANCELADO):");
+    if (novoStatus) {
+      const token = localStorage.getItem('token');
+      try {
+        await api.put(`/venda/${idVenda}`,
+        {
+          statusVenda: novoStatus.toUpperCase()
+        },
+        {
+          headers: { Authorization: `Bearer ${token}`}
+        });
+        alert("Status atualizado!");
+        carregarVendas();
+      } catch (error) {
+        alert("Erro ao atualizar. Verifique se o status é válido.");
+      }
+    }
+  }
 
   // Função para abrir/fechar a linha
   const toggleLinha = (id) => {
@@ -49,10 +76,12 @@ function GerenciarVendas() {
   }
 
   const formatarPreco = (valor) => {
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    if(valor === undefined || valor == null) return "R$ 0,00";
+    return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
   const formatarData = (data) => {
+    if(!data) return "-";
     const [ano, mes, dia] = data.split('-');
     return `${dia}/${mes}/${ano}`;
   }
@@ -117,13 +146,13 @@ function GerenciarVendas() {
 
                     {/* Botão EDITAR (Agora no lugar dos detalhes) */}
                     <td className="texto-centro">
-                      <button className="btn-editar-tabela">
+                      <button className="btn-editar-tabela" onClick={() => handleUpdate(venda.idVenda)}>
                         <IconeEditar />
                       </button>
                     </td>
 
                     <td className="texto-centro">
-                      <button className="btn-excluir-tabela">
+                      <button className="btn-excluir-tabela" onClick={() => handleDelete(venda.idVenda)}>
                         <IconeLixo />
                       </button>
                     </td>
@@ -147,7 +176,7 @@ function GerenciarVendas() {
                         <div className="detalhes-container">
                           <h4>Itens do Pedido:</h4>
                           <ul>
-                            {venda.produtos.map((prod, index) => (
+                            {venda.produtos && venda.produtos.map((prod, index) => (
                               <li key={index}>
                                 <span>{prod.nomeJogo}</span>
                                 <strong>{formatarPreco(prod.precoPago)}</strong>

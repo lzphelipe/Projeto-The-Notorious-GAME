@@ -22,5 +22,5 @@ INSERT INTO jogos (nome, desenvolvedora, preco, url_imagem, id_categoria) VALUES
 ('Cyberpunk 2077', 'CD Projekt Red', 199.90, 'https://upload.wikimedia.org/wikipedia/pt/f/f7/Cyberpunk_2077_capa.png', 1),
 ('The Witcher 3', 'CD Projekt Red', 89.90, 'https://upload.wikimedia.org/wikipedia/pt/0/06/TW3_Wild_Hunt.png', 1),
 ('Grand Theft Auto V', 'Rockstar Games', 69.90, 'https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png', 2),
-('FIFA 24', 'EA Sports', 299.90, 'https://upload.wikimedia.org/wikipedia/pt/a/a7/FIFA_24_Cover.jpg', 3),
-('Resident Evil 4', 'Capcom', 159.00, 'https://upload.wikimedia.org/wikipedia/pt/3/30/Resident_Evil_4_Remake_capa.png', 4);
+('EA FC 24', 'EA Sports', 299.90, 'https://preview.redd.it/easportsfc-24-official-cover-v0-8d71oqtiurbb1.png?auto=webp&s=d9afa3e4b74ba75768172effbba6786a6d67bd07', 3),
+('Resident Evil 4', 'Capcom', 159.00, 'https://upload.wikimedia.org/wikipedia/pt/3/30/Resident_Evil_4_%28remake%29.png', 4);

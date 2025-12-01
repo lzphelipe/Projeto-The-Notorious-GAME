@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './style.css'
 import api from '../../services/api'
 import LogoImg from '../../assets/logo_notorious.png'
@@ -6,6 +7,8 @@ import LogoImg from '../../assets/logo_notorious.png'
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  const navigate = useNavigate();
 
   async function fazerLogin(event) {
     event.preventDefault();
@@ -21,7 +24,17 @@ function Login() {
         senha: senha
       });
 
+      const token = response.data.token;
+      const perfil = response.data.perfil;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('perfil', perfil);
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
       alert("Login realizado com sucesso: " + response.data);
+
+      navigate('/home');
 
     } catch (error) {
       console.error(error);
