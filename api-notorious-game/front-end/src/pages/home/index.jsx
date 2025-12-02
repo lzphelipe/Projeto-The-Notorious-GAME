@@ -10,9 +10,10 @@ import Carrinho from '../../assets/carrinho-de-compras.png'
 
 function Home() {
 
-  const [jogos, setJogos] = useState([]) // Lista completa que veio do banco
-  const [busca, setBusca] = useState('') // O que o usuário está digitando
+  const [jogos, setJogos] = useState([])
+  const [busca, setBusca] = useState('') 
   const [isAdmin, setIsAdmin] = useState(false)
+  const [menuAberto, setMenuAberto] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -48,7 +49,6 @@ function Home() {
     navigate('/');
   }
 
-  // 3. FILTRO (Ajustado para o nome que vem do Java: 'nomeJogo')
   const jogosFiltrados = jogos.filter(jogo =>
     jogo.nomeJogo.toLowerCase().includes(busca.toLowerCase())
   )
@@ -75,24 +75,43 @@ function Home() {
   }
 
   return (
-    // Removi a div duplicada, deixei só uma com a classe container
     <div className={styles['layout-container']}>
 
-      {/* BARRA SUPERIOR */}
       <header className={styles['top-bar']}>
-        {/* Mudei de button para div para evitar bugs de layout na logo */}
         <div className={styles['logo-area']} onClick={() => navigate('/home')}>
           <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
         </div>
 
         <div className={styles['top-icons']}>
+
           <button className={styles['btn-icone']} onClick={() => navigate('/carrinho')} title="Ir para o Carrinho">
             <img src={Carrinho} alt="Carrinho" className={styles['icone-img']} />
           </button>
 
-          <button className={styles['btn-icone']} onClick={fazerLogout} title="Sair">
-            <img src={Perfil} alt="Perfil" className={styles['icone-img']} />
-          </button>
+          {/* --- AQUI MUDA: Botão de Perfil com Menu --- */}
+          <div className={styles['perfil-container']}>
+
+            {/* O Botão agora só abre/fecha o menu, não faz logout direto */}
+            <button
+              className={styles['btn-icone']}
+              onClick={() => setMenuAberto(!menuAberto)}
+              title="Perfil"
+            >
+              <img src={Perfil} alt="Perfil" className={styles['icone-img']} />
+            </button>
+
+            {/* O Menu Pop-up (Só aparece se menuAberto for true) */}
+            {menuAberto && (
+              <div className={styles['dropdown-menu']}>
+                {/* Aqui sim fica o botão de sair */}
+                <button onClick={fazerLogout} className={styles['btn-sair']}>
+                  Sair
+                </button>
+              </div>
+            )}
+
+          </div>
+
         </div>
       </header>
 
@@ -131,10 +150,8 @@ function Home() {
 
         </main>
 
-        {/* BARRA LATERAL (Só aparece se for Admin) */}
         {isAdmin && (
           <aside className={styles['right-sidebar']}>
-            <h3>Painel Admin</h3>
             <button
               className={styles['empty-btn']}
               onClick={() => navigate('/vendas')}

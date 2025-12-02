@@ -11,6 +11,7 @@ function Carrinho() {
 
     const [itens, setItens] = useState([])
     const [total, setTotal] = useState(0)
+    const [menuAberto, setMenuAberto] = useState(false)
     const navigate = useNavigate()
 
     // 1. CARREGAR ITENS
@@ -78,6 +79,12 @@ function Carrinho() {
         }
     }
 
+     // FUNÇÃO PARA SAIR DA CONTA
+    function fazerLogout() {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
+
     return (
         <div className={styles['layout-admin']}>
 
@@ -87,7 +94,31 @@ function Carrinho() {
                     <img src={LogoImg} alt="Logo" className={styles['logo-img']} />
                 </button>
                 <div className={styles['top-icons']}>
-                    <button className={styles['btn-icone']}> <img src={Perfil} className={styles['icone-img']} /> </button>
+
+                    {/* --- AQUI MUDA: Botão de Perfil com Menu --- */}
+                    <div className={styles['perfil-container']}>
+
+                        {/* O Botão agora só abre/fecha o menu, não faz logout direto */}
+                        <button
+                            className={styles['btn-icone']}
+                            onClick={() => setMenuAberto(!menuAberto)}
+                            title="Perfil"
+                        >
+                            <img src={Perfil} alt="Perfil" className={styles['icone-img']} />
+                        </button>
+
+                        {/* O Menu Pop-up (Só aparece se menuAberto for true) */}
+                        {menuAberto && (
+                            <div className={styles['dropdown-menu']}>
+                                {/* Aqui sim fica o botão de sair */}
+                                <button onClick={fazerLogout} className={styles['btn-sair']}>
+                                    Sair
+                                </button>
+                            </div>
+                        )}
+
+                    </div>
+
                 </div>
             </header>
 
@@ -104,10 +135,10 @@ function Carrinho() {
                                 <div key={item.idJogo} className={styles['card-item-carrinho']}>
 
                                     {/* Imagem */}
-                                    <img 
-                                    src={item.urlImagem ? item.urlImagem : "https://placehold.co/100"} 
-                                    alt={item.nomeJogo} 
-                                    className={styles['img-item']} 
+                                    <img
+                                        src={item.urlImagem ? item.urlImagem : "https://placehold.co/100"}
+                                        alt={item.nomeJogo}
+                                        className={styles['img-item']}
                                     />
 
                                     {/* Detalhes */}
