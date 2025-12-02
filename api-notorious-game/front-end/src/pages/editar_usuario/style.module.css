@@ -1,6 +1,4 @@
-/* =========================================
-   ESTRUTURA GERAL
-   ========================================= */
+/* ESTRUTURA GERAL */
 .layout-admin {
   min-height: 100vh;
   width: 100%;
@@ -49,9 +47,7 @@
 
 .icone-img { width: 30px; height: 30px; object-fit: contain; }
 
-/* =========================================
-   CONTAINER PRETO E DIVISÃO
-   ========================================= */
+/* CONTAINER PRETO E DIVISÃO */
 .main-content {
   width: 100%;
   min-height: calc(100vh - 90px);
@@ -104,9 +100,65 @@
   opacity: 0.5;
 }
 
-/* =========================================
-   ESTILOS DOS INPUTS
-   ========================================= */
+/* MENU DROPDOWN (PERFIL) */
+
+/* Container relativo para posicionar o menu */
+.perfil-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* O Menu Flutuante */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #000;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  width: 120px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+/* Triângulo do Menu */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  transform: rotate(45deg);
+  border-left: 1px solid #333;
+  border-top: 1px solid #333;
+}
+
+/* Botão Sair */
+.btn-sair {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  transition: 0.2s;
+  text-align: center;
+  width: 100%;
+}
+
+.btn-sair:hover {
+  background-color: #c0392b;
+}
+
+/* ESTILOS DOS INPUTS */
 .label-form {
   color: #bbb;
   font-size: 14px;
@@ -139,9 +191,7 @@
   width: 100%;
 }
 
-/* =========================================
-   BOTÕES DE AÇÃO
-   ========================================= */
+/* BOTÕES DE AÇÃO */
 .grupo-botoes {
   display: flex;
   gap: 20px;
