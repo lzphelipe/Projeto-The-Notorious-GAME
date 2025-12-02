@@ -43,7 +43,7 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.GET, "/vendas/**").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.PUT, "/vendas/**").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.DELETE, "/vendas/**").hasRole("ADMIN");
-                    req.requestMatchers(HttpMethod.POST, "/vendas").hasRole("CLIENTE");
+                    req.requestMatchers(HttpMethod.POST, "/vendas").hasAnyRole("CLIENTE", "ADMIN");
 
                     req.anyRequest().authenticated();
                 })

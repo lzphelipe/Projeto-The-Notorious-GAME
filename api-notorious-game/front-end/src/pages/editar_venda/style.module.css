@@ -225,6 +225,34 @@
   margin-left: 15px;
 }
 
+.lista-sugestoes {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 0 0 10px 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 100; /* Fica por cima de tudo */
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.lista-sugestoes li {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white;
+    border-bottom: 1px solid #444;
+}
+
+.lista-sugestoes li:hover {
+    background-color: #FFBE00;
+    color: black;
+}
+
 /* 5. LISTA DE JOGOS (COLUNA DIREITA) */
 
 /* Container para adicionar novo ID de jogo */
@@ -245,16 +273,21 @@
   width: 150px;
 }
 
-/* Botão redondo de adicionar (+) */
 .btn-add-mini {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Bolinha perfeita */
   background-color: #FFBE00;
+  border: none;
+  font-size: 24px;
   font-weight: bold;
-  font-size: 20px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 0px; /* Ajuste visual do + */
+  transition: 0.2s;
+  flex-shrink: 0; /* Impede o botão de amassar */
 }
 
 /* Container da lista de chips (IDs adicionados) */
@@ -304,27 +337,31 @@
   margin-top: auto;
 }
 
-/* Botão de Cancelar (Vermelho) */
 .btn-cancelar {
-  background-color: #c0392b;
+  background-color: #333;
   color: #fff;
   border: none;
   padding: 15px 40px;
   border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Botão de Salvar (Verde) */
+.btn-cancelar:hover { opacity: 0.8; }
+
 .btn-salvar {
-  background-color: #00c01f;
-  color: #fff;
+  background-color: #FFBE00;
+  color: #000;
   border: none;
   padding: 15px 40px;
   border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
+
+.btn-salvar:hover { background-color: #e6ac00; }
 
 /* 7. RESPONSIVIDADE */
 

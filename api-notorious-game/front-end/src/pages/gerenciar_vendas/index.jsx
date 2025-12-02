@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../services/api'
 import styles from './style.module.css'
@@ -53,7 +53,7 @@ function GerenciarVendas() {
   }
 
   function irParaEdicao(idVenda) {
-    navigate(`/vendas/editar/${idVenda}`);
+    navigate(`/vendas/${idVenda}`);
   }
 
   const toggleLinha = (id) => {
@@ -131,6 +131,13 @@ function GerenciarVendas() {
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
             />
+
+            <button
+              className={styles['btn-nova-venda']}
+              onClick={() => navigate('/vendas/nova')}
+            >
+              + Nova Venda
+            </button>
           </div>
 
           <table className={styles['tabela-usuarios']}>
@@ -149,16 +156,13 @@ function GerenciarVendas() {
 
             <tbody>
               {vendas.filter(venda =>
-                venda.nomePessoa.toLowerCase().includes(busca.toLowerCase())
+                venda.nomeUsuario.toLowerCase().includes(busca.toLowerCase())
               ).map((venda) => (
-                <>
-                  {/* LINHA PRINCIPAL */}
-                  <tr
-                    key={venda.idVenda}
-                    className={linhaExpandida === venda.idVenda ? styles['linha-ativa'] : ""}
+                <React.Fragment key={venda.idVenda}>                 
+                  <tr className={linhaExpandida === venda.idVenda ? styles['linha-ativa'] : ""}
                   >
                     <td className={styles['texto-centro']}>{venda.idVenda}</td>
-                    <td>{venda.nomePessoa}</td>
+                    <td>{venda.nomeUsuario}</td>
                     <td>{formatarData(venda.dataVenda)}</td>
                     <td style={{ fontWeight: 'bold' }}>{formatarPreco(venda.precoTotal)}</td>
 
@@ -213,7 +217,7 @@ function GerenciarVendas() {
                       </td>
                     </tr>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>

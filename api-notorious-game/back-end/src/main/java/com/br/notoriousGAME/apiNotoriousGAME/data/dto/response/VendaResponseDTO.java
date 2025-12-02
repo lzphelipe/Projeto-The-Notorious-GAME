@@ -8,7 +8,8 @@ import java.util.List;
 
 public record VendaResponseDTO(
         Long idVenda,
-        String nomePessoa,
+        Long idUsuario,
+        String nomeUsuario,
         LocalDate dataVenda,
         BigDecimal precoTotal,
         String statusVenda,
@@ -17,6 +18,7 @@ public record VendaResponseDTO(
     public VendaResponseDTO(Venda venda, List<VendaProdutoResponseDTO> produtos){
         this(
                 venda.getIdVenda(),
+                venda.getUsuario().getIdUsuario(),
                 venda.getUsuario().getNomeUsuario(),
                 venda.getDataVenda(),
                 venda.getPrecoTotal(),

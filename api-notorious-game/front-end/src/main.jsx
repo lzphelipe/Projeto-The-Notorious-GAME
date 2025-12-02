@@ -37,7 +37,7 @@ createRoot(document.getElementById('root')).render(
         {/*Gerenciamento de vendas */}
         <Route path="/vendas" element={<GerenciarVendas />} />
         <Route path="/vendas/nova" element={<CadastrarVenda />} />
-        <Route path="/vendas/editar/:id" element={<EditarVenda />} />
+        <Route path="/vendas/:id" element={<EditarVenda />} />
 
         {/*Gerenciamento de usuarios */}
         <Route path="/usuarios" element={<GerenciarUsuarios />} />
