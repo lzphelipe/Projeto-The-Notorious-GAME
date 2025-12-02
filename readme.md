@@ -87,6 +87,7 @@ Em uma pasta de sua preferência, use o comando abaixo para clonar o repositóri
 
 ```bash
 git clone https://github.com/lzphelipe/Projeto-The-Notorious-GAME.git
+```
 
 ---
 
@@ -163,6 +164,7 @@ api-notorious-game/
 │   └── 📂 Padrões_e_Requisitos # Regras de Análise e Boas Práticas
 │
 └── 📄 README.md                # Apresentação do Projeto
+```
 
 ---
 
