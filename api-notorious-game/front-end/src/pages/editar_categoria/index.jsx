@@ -25,7 +25,7 @@ function EditarCategoria() {
         const response = await api.get(`/categorias/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        
+
         const categoria = response.data;
 
         setForm({
@@ -49,8 +49,8 @@ function EditarCategoria() {
   // 3. SALVAR ALTERAÇÕES (PUT)
   async function salvarAlteracoes() {
     if (!form.nomeCategoria || !form.descricao) {
-        alert("Preencha todos os campos!");
-        return;
+      alert("Preencha todos os campos!");
+      return;
     }
 
     const token = localStorage.getItem('token');
@@ -59,7 +59,7 @@ function EditarCategoria() {
       await api.put(`/categorias/${id}`, form, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+
       alert("Categoria atualizada com sucesso!");
       navigate('/categorias'); // Volta para Gerenciar Categorias
 
@@ -94,11 +94,11 @@ function EditarCategoria() {
 
             <label className={styles['label-form']}>Nome da Categoria</label>
             <input
-              name="nome"
+              name="nomeCategoria"
               value={form.nomeCategoria}
               onChange={handleChange}
               placeholder="Ex: RPG"
-              className={styles['input-nome']} // Usei o estilo maior para destaque
+              className={styles['input-select']}
             />
 
             <label className={styles['label-form']}>Descrição</label>
@@ -107,7 +107,14 @@ function EditarCategoria() {
               value={form.descricao}
               onChange={handleChange}
               placeholder="Descrição breve..."
-              className={styles['input-select']} // Usei estilo padrão
+              className={styles['text-area']}
+              
+              style={{
+                height: '55px',
+                
+                resize: 'none',
+                fontFamily: 'inherit'
+              }}
             />
           </div>
 
@@ -119,15 +126,15 @@ function EditarCategoria() {
             <h2 className={styles['titulo-branco']}>Deseja salvar as alterações?</h2>
 
             <div className={styles['grupo-botoes']}>
-              <button 
-                className={styles['btn-cancelar']} 
+              <button
+                className={styles['btn-cancelar']}
                 onClick={() => navigate('/categorias')}
               >
                 Cancelar
               </button>
-              
-              <button 
-                className={styles['btn-salvar']} 
+
+              <button
+                className={styles['btn-salvar']}
                 onClick={salvarAlteracoes}
               >
                 Salvar Alterações

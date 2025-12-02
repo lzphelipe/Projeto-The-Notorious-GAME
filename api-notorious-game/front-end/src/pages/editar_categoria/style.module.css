@@ -1,6 +1,4 @@
-/* =========================================
-   ESTRUTURA GERAL
-   ========================================= */
+/* ESTRUTURA GERAL */
 .layout-admin {
   min-height: 100vh;
   width: 100%;
@@ -119,9 +117,7 @@
   background-color: #444; /* Cinza um pouco mais visível */
 }
 
-/* =========================================
-   ESTILOS DOS INPUTS
-   ========================================= */
+/* ESTILOS DOS INPUTS */
 .label-form {
   color: #bbb;
   font-size: 14px;
@@ -141,72 +137,19 @@
   width: 100%;
 }
 
-/* LISTA DE JOGOS (DIREITA) */
-.add-jogo-container {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  width: 100%;
-}
-
-.input-mini {
-  height: 50px;
+.text-area {
+  height: 55px;
   border-radius: 15px;
   border: none;
-  background-color: #fff;
+  background-color: #d9d9d9;
   padding-left: 20px;
   font-size: 16px;
   color: #000;
-  width: 70%; /* Ocupa a maior parte */
+  outline: none;
+  width: 100%;
 }
 
-.btn-add-mini {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #FFBE00;
-  border: none;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 5px; /* Ajuste visual do + */
-}
-
-.lista-ids-jogos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-  min-height: 100px; /* Garante espaço visual mesmo vazia */
-}
-
-.chip-jogo {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  border: 1px solid #555;
-}
-
-.btn-remove-mini {
-  background: transparent;
-  border: none;
-  color: #ff5555;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-/* =========================================
-   BOTÕES DE AÇÃO
-   ========================================= */
+/* BOTÕES DE AÇÃO */
 .grupo-botoes {
   display: flex;
   gap: 20px;
