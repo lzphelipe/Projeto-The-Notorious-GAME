@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../services/api'
-import styles from './style.module.css' 
+import styles from './style.module.css'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
@@ -14,6 +14,7 @@ function GerenciarCategorias() {
   const navigate = useNavigate()
   const [categorias, setCategorias] = useState([])
   const [busca, setBusca] = useState('')
+  const [menuAberto, setMenuAberto] = useState(false)
 
   // 1. CARREGAR DO BANCO
   async function carregarCategorias() {
@@ -49,16 +50,45 @@ function GerenciarCategorias() {
     }
   }
 
+  function fazerLogout() {
+    localStorage.removeItem('token');
+    navigate('/');
+  }
+
   return (
     <div className={styles['layout-admin']}>
 
+      {/* HEADER */}
       <header className={styles['top-bar']}>
-        <div className={styles['logo-area']} onClick={() => navigate('/home')}>
-          <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
-        </div>
+        <button className={styles['logo-area']} onClick={() => navigate('/home')}>
+          <img src={LogoImg} alt="Logo" className={styles['logo-img']} />
+        </button>
         <div className={styles['top-icons']}>
-          <button className={styles['btn-icone']}> <img src={Carrinho} className={styles['icone-img']} /> </button>
-          <button className={styles['btn-icone']}> <img src={Perfil} className={styles['icone-img']} /> </button>
+
+          {/* --- AQUI MUDA: Botão de Perfil com Menu --- */}
+          <div className={styles['perfil-container']}>
+
+            {/* O Botão agora só abre/fecha o menu, não faz logout direto */}
+            <button
+              className={styles['btn-icone']}
+              onClick={() => setMenuAberto(!menuAberto)}
+              title="Perfil"
+            >
+              <img src={Perfil} alt="Perfil" className={styles['icone-img']} />
+            </button>
+
+            {/* O Menu Pop-up (Só aparece se menuAberto for true) */}
+            {menuAberto && (
+              <div className={styles['dropdown-menu']}>
+                {/* Aqui sim fica o botão de sair */}
+                <button onClick={fazerLogout} className={styles['btn-sair']}>
+                  Sair
+                </button>
+              </div>
+            )}
+
+          </div>
+
         </div>
       </header>
 
@@ -76,7 +106,7 @@ function GerenciarCategorias() {
               onChange={(e) => setBusca(e.target.value)}
             />
 
-            <button 
+            <button
               className={styles['btn-novo-usuario']} // Reutiliza a classe do botão preto e amarelo
               onClick={() => navigate('/categorias/nova')}
             >
@@ -101,7 +131,7 @@ function GerenciarCategorias() {
               ).map((categorias) => (
                 <tr key={categorias.idCategoria}>
                   <td className={styles['texto-centro']}>{categorias.idCategoria}</td>
-                  
+
                   <td>{categorias.nomeCategoria}</td>
                   <td>{categorias.descricao}</td>
 

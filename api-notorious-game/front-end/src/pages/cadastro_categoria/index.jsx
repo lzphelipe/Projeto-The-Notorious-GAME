@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom' 
-import styles from './style.module.css' 
-import api from '../../services/api' 
+import { useNavigate } from 'react-router-dom'
+import styles from './style.module.css'
+import api from '../../services/api'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
 
 function CadastrarCategoria() {
+  const [menuAberto, setMenuAberto] = useState(false)
   const navigate = useNavigate()
-  
+
   const [form, setForm] = useState({
     nomeCategoria: '',
     descricao: ''
@@ -33,8 +34,8 @@ function CadastrarCategoria() {
       })
 
       alert("Categoria cadastrada com sucesso!")
-      
-      navigate('/categorias') 
+
+      navigate('/categorias')
 
     } catch (error) {
       console.error("Erro ao cadastrar categoria", error)
@@ -42,68 +43,106 @@ function CadastrarCategoria() {
     }
   }
 
+  // FUNÇÃO PARA SAIR DA CONTA
+  function fazerLogout() {
+    localStorage.removeItem('token');
+    navigate('/');
+  }
+
   return (
     <div className={styles['layout-admin']}>
-      
+
       {/* HEADER */}
       <header className={styles['top-bar']}>
-        <div className={styles['logo-area']} onClick={() => navigate('/home')}> 
-            <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} /> 
-        </div>
+        <button className={styles['logo-area']} onClick={() => navigate('/home')}>
+          <img src={LogoImg} alt="Logo" className={styles['logo-img']} />
+        </button>
         <div className={styles['top-icons']}>
-          <button className={styles['btn-icone']} onClick={() => navigate('/')}> <img src={Perfil} className={styles['icone-img']} /> </button>
+
+          {/* --- AQUI MUDA: Botão de Perfil com Menu --- */}
+          <div className={styles['perfil-container']}>
+
+            {/* O Botão agora só abre/fecha o menu, não faz logout direto */}
+            <button
+              className={styles['btn-icone']}
+              onClick={() => setMenuAberto(!menuAberto)}
+              title="Perfil"
+            >
+              <img src={Perfil} alt="Perfil" className={styles['icone-img']} />
+            </button>
+
+            {/* O Menu Pop-up (Só aparece se menuAberto for true) */}
+            {menuAberto && (
+              <div className={styles['dropdown-menu']}>
+                {/* Aqui sim fica o botão de sair */}
+                <button onClick={fazerLogout} className={styles['btn-sair']}>
+                  Sair
+                </button>
+              </div>
+            )}
+
+          </div>
+
         </div>
       </header>
 
       <main className={styles['main-content']}>
-        
+
         {/* O CONTAINER PRETO DIVIDIDO */}
         <div className={`${styles['black-container']} ${styles['cadastro-layout']}`}>
-           
-           {/* LADO ESQUERDO: O Formulário */}
-           <div className={styles['form-esquerda']}>
+
+          {/* LADO ESQUERDO: O Formulário */}
+          <div className={styles['form-esquerda']}>
+            {/* LABEL + INPUT NOME */}
+            <div className={styles['input-group']}>
               <label className={styles['label-form']}>Nome da Categoria</label>
-              <input 
-                className={styles['input-nome']} 
-                placeholder="Nome" 
-                name="nomeCategoria" 
-                value={form.nomeCategoria} 
-                onChange={handleChange} 
+              <input
+                className={styles['input-box']} // Mudei a classe para ser menos redondo
+                placeholder="Ex: RPG de Ação"
+                name="nome"
+                value={form.nome}
+                onChange={handleChange}
               />
+            </div>
 
+            {/* LABEL + TEXTAREA DESCRIÇÃO */}
+            <div className={styles['input-group']}>
               <label className={styles['label-form']}>Descrição</label>
-              <input 
-                className={styles['input-padrao']} 
-                placeholder="Descrição" 
-                name="descricao" 
-                value={form.descricao} 
-                onChange={handleChange} 
+              {/* TEXTAREA: Permite quebrar linha automaticamente */}
+              <textarea
+                className={styles['textarea-box']}
+                placeholder="Escreva aqui uma descrição detalhada"
+                name="descricao"
+                value={form.descricao}
+                onChange={handleChange}
+                rows={5} // Altura inicial
               />
-           </div>
+            </div>
+          </div>
 
-           {/* O RISCO NO MEIO */}
-           <div className={styles['divisor-vertical']}></div>
+          {/* O RISCO NO MEIO */}
+          <div className={styles['divisor-vertical']}></div>
 
-           {/* LADO DIREITO: Texto e Botões */}
-           <div className={styles['form-direita']}>
-              <h2>Você deseja salvar essa categoria no banco de dados?</h2>
-              
-              <div className={styles['grupo-botoes']}>
-                 <button 
-                    className={styles['btn-cancelar']}
-                    onClick={() => navigate('/categorias')}
-                 >
-                    Cancelar
-                 </button>
-                 
-                 <button 
-                    className={styles['btn-salvar']}
-                    onClick={salvarCategoria}
-                 >
-                    Salvar
-                 </button>
-              </div>
-           </div>
+          {/* LADO DIREITO: Texto e Botões */}
+          <div className={styles['form-direita']}>
+            <h2>Você deseja salvar essa categoria no banco de dados?</h2>
+
+            <div className={styles['grupo-botoes']}>
+              <button
+                className={styles['btn-cancelar']}
+                onClick={() => navigate('/categorias')}
+              >
+                Cancelar
+              </button>
+
+              <button
+                className={styles['btn-salvar']}
+                onClick={salvarCategoria}
+              >
+                Salvar
+              </button>
+            </div>
+          </div>
 
         </div>
 
