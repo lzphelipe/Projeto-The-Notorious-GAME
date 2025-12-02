@@ -200,3 +200,18 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+/* Tamanho dos ícones de Lápis e Lixo */
+.icone-acao {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+  transition: 0.2s;
+}
+
+/* Efeito ao passar o mouse no botão */
+.btn-acao:hover .icone-acao {
+  transform: scale(1.2); 
+  filter: brightness(1.2); 
+}

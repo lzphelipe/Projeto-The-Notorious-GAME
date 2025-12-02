@@ -42,7 +42,7 @@ createRoot(document.getElementById('root')).render(
         {/*Gerenciamento de jogos */}
         <Route path="/jogos" element={<GerenciarJogos />} />
         <Route path="/jogos/novo" element={<CadastroJogo />} />
-        <Route path="/jogos/editar/:id" element={<EditarJogo />} />
+        <Route path="/editar-jogo/:id" element={<EditarJogo />} />
 
         {/*Gerenciamento de categorias */}
         <Route path="/categorias" element={<GerenciarCategorias />} />

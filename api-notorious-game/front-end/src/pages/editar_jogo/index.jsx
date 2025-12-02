@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom' // useParams para pegar o ID da URL
+import { useNavigate, useParams } from 'react-router-dom'
 import styles from './style.module.css' 
 import api from '../../services/api'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
-import Carrinho from '../../assets/carrinho-de-compras.png'
 
 function EditarJogo() {
   const navigate = useNavigate()
-  const { id } = useParams() // Pega o ID que veio na rota
+  const { id } = useParams() 
   
   const [form, setForm] = useState({
     nomeJogo: '',
@@ -19,7 +18,7 @@ function EditarJogo() {
     urlImagem: '' 
   })
 
-  // 1. CARREGAR DADOS AO ABRIR A TELA
+  // 1. CARREGAR DADOS (COM PROTEÇÃO CONTRA ERROS)
   useEffect(() => {
     async function carregarDados() {
       const token = localStorage.getItem('token')
@@ -28,19 +27,22 @@ function EditarJogo() {
           headers: { Authorization: `Bearer ${token}` }
         })
         
-        // Preenche o formulário com os dados que vieram do banco
+        const dados = response.data;
+
         setForm({
-          nomeJogo: response.data.nomeJogo,
-          nomeCategoria: response.data.nomeCategoria.nomeCategoria || response.data.nomeCategoria, // Ajuste conforme seu backend retorna
-          desenvolvedoraJogo: response.data.desenvolvedoraJogo,
-          precoJogo: response.data.precoJogo,
-          urlImagem: response.data.urlImagem
+          nomeJogo: dados.nomeJogo || '',
+          
+          nomeCategoria: dados.categoria?.nomeCategoria || dados.nomeCategoria || '', 
+          
+          desenvolvedoraJogo: dados.desenvolvedoraJogo || '',
+          precoJogo: dados.precoJogo || '',
+          urlImagem: dados.urlImagem || ''
         })
 
       } catch (error) {
         console.error("Erro ao buscar jogo", error)
         alert("Erro ao carregar dados do jogo.")
-        navigate('/jogos') // Se der erro, volta pra lista
+        navigate('/jogos') 
       }
     }
     carregarDados()
@@ -50,7 +52,7 @@ function EditarJogo() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  // 2. FUNÇÃO DE ATUALIZAR (PUT)
+  // 2. SALVAR (PUT)
   async function editarJogo() {
     if (!form.nomeJogo || !form.precoJogo) {
       alert("Preencha os campos obrigatórios!")
@@ -59,15 +61,19 @@ function EditarJogo() {
 
     const token = localStorage.getItem('token')
     
-    // Tratamento do preço (caso seja string com vírgula ou número)
+    // Tratamento do preço
     let precoFormatado = form.precoJogo
     if (typeof form.precoJogo === 'string') {
         precoFormatado = parseFloat(form.precoJogo.replace(',', '.'))
     }
 
+    // Monta o objeto EXATO que o Java espera
     const objetoParaEnviar = {
-      ...form,
-      precoJogo: precoFormatado
+      nomeJogo: form.nomeJogo,
+      nomeCategoria: form.nomeCategoria, // Garante que manda com o nome certo
+      desenvolvedoraJogo: form.desenvolvedoraJogo,
+      precoJogo: precoFormatado,
+      urlImagem: form.urlImagem
     }
 
     try {
@@ -87,13 +93,11 @@ function EditarJogo() {
   return (
     <div className={styles['layout-admin']}>
       
-      {/* HEADER */}
       <header className={styles['top-bar']}>
         <div className={styles['logo-area']} onClick={() => navigate('/home')}> 
             <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} /> 
         </div>
         <div className={styles['top-icons']}>
-          <button className={styles['btn-icone']}> <img src={Carrinho} className={styles['icone-img']} /> </button>
           <button className={styles['btn-icone']}> <img src={Perfil} className={styles['icone-img']} /> </button>
         </div>
       </header>
@@ -102,7 +106,6 @@ function EditarJogo() {
         
         <div className={styles['black-container']}>
            
-           {/* LADO ESQUERDO: Formulário */}
            <div className={styles['form-esquerda']}>
               
               <label className={styles['label-form']}>Nome do Jogo</label>
@@ -159,7 +162,6 @@ function EditarJogo() {
 
            <div className={styles['divisor-vertical']}></div>
 
-           {/* LADO DIREITO */}
            <div className={styles['form-direita']}>
               <h2>Deseja salvar as alterações neste jogo?</h2>
               

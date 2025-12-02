@@ -5,6 +5,8 @@ import api from '../../services/api'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
+import Lixo from '../../assets/lixo.png'
+import Lapis from '../../assets/lapis.png'
 
 const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>
 const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
@@ -105,12 +107,23 @@ function GerenciarJogos() {
               </div>
 
               <div className={styles['acoes-jogo']}>
-                  <button className={styles['btn-acao']} onClick={() => navigate('/jogos/editar/:id')}>
-                    <IconeEditar />
+                  
+                  {/* Botão Editar com Imagem */}
+                  <button 
+                    className={styles['btn-acao']} 
+                    onClick={() => navigate(`/editar-jogo/${jogo.id || jogo.idJogo}`)}
+                  >
+                    <img src={Lapis} alt="Editar" className={styles['icone-acao']} />
                   </button>
-                  <button className={styles['btn-acao']} onClick={() => handleDelete(jogo.idJogo || jogo.id)}>
-                    <IconeLixo />
+                  
+                  {/* Botão Excluir com Imagem */}
+                  <button 
+                    className={styles['btn-acao']} 
+                    onClick={() => handleDelete(jogo.idJogo || jogo.id)}
+                  >
+                    <img src={Lixo} alt="Excluir" className={styles['icone-acao']} />
                   </button>
+
               </div>
 
             </div>
