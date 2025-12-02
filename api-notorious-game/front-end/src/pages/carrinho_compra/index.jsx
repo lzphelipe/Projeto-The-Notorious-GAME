@@ -79,7 +79,7 @@ function Carrinho() {
         }
     }
 
-     // FUNÇÃO PARA SAIR DA CONTA
+    // FUNÇÃO PARA SAIR DA CONTA
     function fazerLogout() {
         localStorage.removeItem('token');
         navigate('/');
