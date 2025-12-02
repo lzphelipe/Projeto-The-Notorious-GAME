@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './style.module.css'
 import api from '../../services/api'
@@ -13,7 +13,7 @@ function CadastrarCategoria() {
   const [form, setForm] = useState({
     nomeCategoria: '',
     descricao: ''
-  })
+  });
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -23,7 +23,7 @@ function CadastrarCategoria() {
     // Validação simples
     if (!form.nomeCategoria || !form.descricao) {
       alert("Preencha todos os campos!")
-      return
+      return;
     }
 
     const token = localStorage.getItem('token')
@@ -99,8 +99,8 @@ function CadastrarCategoria() {
               <input
                 className={styles['input-box']} // Mudei a classe para ser menos redondo
                 placeholder="Ex: RPG de Ação"
-                name="nome"
-                value={form.nome}
+                name="nomeCategoria"
+                value={form.nomeCategoria}
                 onChange={handleChange}
               />
             </div>

@@ -5,7 +5,6 @@ import styles from './style.module.css'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
-import Carrinho from '../../assets/carrinho-de-compras.png'
 
 function EditarCategoria() {
   const { id } = useParams();
@@ -128,8 +127,8 @@ function EditarCategoria() {
               <input
                 className={styles['input-box']} // Mudei a classe para ser menos redondo
                 placeholder="Ex: RPG de Ação"
-                name="nome"
-                value={form.nome}
+                name="nomeCategoria"
+                value={form.nomeCategoria}
                 onChange={handleChange}
               />
             </div>
