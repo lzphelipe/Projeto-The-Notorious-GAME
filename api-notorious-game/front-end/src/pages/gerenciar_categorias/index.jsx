@@ -5,7 +5,6 @@ import styles from './style.module.css'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
-import Carrinho from '../../assets/carrinho-de-compras.png'
 
 const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
 const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>

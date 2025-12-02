@@ -47,13 +47,16 @@ function CadastrarVenda() {
   function handleBuscaUsuario(e) {
     const texto = e.target.value;
     setBuscaUsuario(texto);
+
     if (texto.length > 0) {
-        const filtrados = usuarios.filter(u => 
-            (u.nomeUsuario || "").toLowerCase().includes(texto.toLowerCase())
-        );
-        setSugestoesUsuarios(filtrados);
+      const filtrados = usuarios.filter(u =>
+        (u.nomeUsuario.toLowerCase().includes(texto.toLowerCase()) ||
+        u.email.toLowerCase().includes(texto.toLowerCase()))
+        && u.perfil === 'CLIENTE'
+      );
+      setSugestoesUsuarios(filtrados);
     } else {
-        setSugestoesUsuarios([]);
+      setSugestoesUsuarios([]);
     }
   }
 

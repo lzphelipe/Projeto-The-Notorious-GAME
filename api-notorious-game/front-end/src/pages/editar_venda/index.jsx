@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import api from '../../services/api'
 import styles from './style.module.css'
 
@@ -37,27 +37,56 @@ function EditarVenda() {
   }
 
   useEffect(() => {
-    async function loadListas() {
+    async function loadDados() {
       const token = localStorage.getItem('token');
       try {
-        // Carrega Usuários
+        // A. Carrega Venda
+        const responseVenda = await api.get(`/vendas/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const venda = responseVenda.data;
+
+        // B. Carrega Usuários
         const responseUsuarios = await api.get('/usuarios', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUsuarios(responseUsuarios.data);
 
-        // Carrega Jogos
+        // Preenche o campo de busca de usuário com o nome atual
+        const usuarioAtual = responseUsuarios.data.find(u => u.idUsuario === venda.idUsuario);
+        setBuscaUsuario(usuarioAtual ? usuarioAtual.nomeUsuario : `ID: ${venda.idUsuario}`);
+
+        setForm({
+          idUsuario: venda.idUsuario || "",
+          dataVenda: formatarDataParaBr(venda.dataVenda),
+          statusVenda: venda.statusVenda,
+          produtos: venda.itens || venda.produtos || []
+        });
+
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao carregar dados.");
+        navigate('/vendas');
+      }
+    }
+    loadDados();
+  }, [id])
+
+  useEffect(() => {
+    async function loadListas() {
+      const token = localStorage.getItem('token');
+      try {
+        // C. Carrega Jogos
         const responseJogos = await api.get('/jogos', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setJogos(responseJogos.data);
-
       } catch (error) {
-        console.error("Erro ao carregar listas.", error);
+        console.error("Erro ao carregar listas", error);
       }
     }
     loadListas();
-  }, [id])
+  }, [])
 
   //Lógica Usuário
   function handleBuscaUsuario(e) {
@@ -66,8 +95,9 @@ function EditarVenda() {
 
     if (texto.length > 0) {
       const filtrados = usuarios.filter(u =>
-        u.nomeUsuario.toLowerCase().includes(texto.toLowerCase()) ||
-        u.email.toLowerCase().includes(texto.toLowerCase())
+        (u.nomeUsuario.toLowerCase().includes(texto.toLowerCase()) ||
+        u.email.toLowerCase().includes(texto.toLowerCase()))
+        && u.perfil === 'CLIENTE'
       );
       setSugestoes(filtrados);
     } else {
