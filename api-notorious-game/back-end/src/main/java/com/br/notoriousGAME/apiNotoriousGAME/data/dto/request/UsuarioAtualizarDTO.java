@@ -17,7 +17,6 @@ public record UsuarioAtualizarDTO(
         @Email(message = "Formato de e-mail inválido")
         String email,
 
-        @NotBlank(message = "A senha é obrigatória")
         String senha
 ) {
 }

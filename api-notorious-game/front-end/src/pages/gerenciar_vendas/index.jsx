@@ -36,7 +36,7 @@ function GerenciarVendas() {
   }, [])
 
   async function handleDelete(idVenda) {
-    if (confirm("Tem certeza que deseja excluir/cancelar esta venda?")) {
+    if (confirm("Tem certeza que deseja excluir esta venda?")) {
       const token = localStorage.getItem('token');
       try {
         await api.delete(`/vendas/${idVenda}`, {

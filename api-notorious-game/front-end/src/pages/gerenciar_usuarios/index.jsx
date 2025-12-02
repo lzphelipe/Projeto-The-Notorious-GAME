@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './style.module.css' 
-import api from '../../services/api' 
+import styles from './style.module.css'
+import api from '../../services/api'
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
@@ -34,19 +34,24 @@ function GerenciarUsuarios() {
   }, [])
 
   // 2. FUNÇÃO DE EXCLUIR
-  async function handleDelete(id) {
+  async function handleDelete(idUsuario) {
     if (confirm("Tem certeza que deseja excluir este usuário?")) {
       const token = localStorage.getItem('token')
       try {
-        await api.delete(`/usuarios/${id}`, { // Verifique se sua rota no Java é essa
+        await api.delete(`/usuarios/${idUsuario}`, {
           headers: { Authorization: `Bearer ${token}` }
-        })
+        });
         alert("Usuário excluído com sucesso!")
-        carregarUsuarios() // Atualiza a lista
+        carregarUsuarios();
       } catch (error) {
-        alert("Erro ao excluir usuário.")
+        console.error(error);
+        alert("Erro ao excluir usuário.");
       }
     }
+  }
+
+  function irParaEdicao(idUsuario) {
+    navigate(`/usuarios/editar/${idUsuario}`);
   }
 
   return (
@@ -57,7 +62,7 @@ function GerenciarUsuarios() {
           <img src={LogoImg} alt="Logo Notorious" className={styles['logo-img']} />
         </div>
         <div className={styles['top-icons']}>
-          <button className={styles['btn-icone']} onClick={() =>navigate('/')}> <img src={Perfil} className={styles['icone-img']} /> </button>
+          <button className={styles['btn-icone']} onClick={() => navigate('/')}> <img src={Perfil} className={styles['icone-img']} /> </button>
         </div>
       </header>
 
@@ -67,7 +72,7 @@ function GerenciarUsuarios() {
 
           {/* CABEÇALHO DA TABELA (Busca + Botão Novo) */}
           <div className={styles['header-conteudo']}>
-            
+
             <input
               type="text"
               placeholder="Pesquisar usuário..."
@@ -77,9 +82,9 @@ function GerenciarUsuarios() {
             />
 
             {/* BOTÃO NOVO USUÁRIO */}
-            <button 
+            <button
               className={styles['btn-novo-usuario']}
-              onClick={() => navigate('/novo-usuario')} 
+              onClick={() => navigate('/usuarios/novo')}
             >
               + Novo Usuário
             </button>
@@ -100,30 +105,30 @@ function GerenciarUsuarios() {
             </thead>
 
             <tbody>
-              {usuarios.filter(user =>
-                // Proteção caso user.nome venha null do banco
-                (user.nomeUsuario || user.nome || '').toLowerCase().includes(busca.toLowerCase())
-              ).map((user) => (
-                <tr key={user.id}>
-                  <td className={styles['texto-centro']}>{user.id}</td>
-                  
+              {usuarios.filter(usuario =>
+                usuario.perfil === 'CLIENTE' &&
+                (usuario.nomeUsuario || usuario.nome || '').toLowerCase().includes(busca.toLowerCase())
+              ).map((usuario) => (
+                <tr key={usuario.idUsuario}>
+                  <td className={styles['texto-centro']}>{usuario.idUsuario}</td>
+
                   {/* Tenta pegar nomeUsuario ou nome */}
-                  <td>{user.nomeUsuario || user.nome}</td> 
-                  
-                  <td>{user.cpf}</td>
-                  <td>{user.email}</td>
+                  <td>{usuario.nomeUsuario || usuario.nome}</td>
+
+                  <td>{usuario.cpf}</td>
+                  <td>{usuario.email}</td>
                   <td className={styles['texto-centro']}>**********</td>
 
                   {/* BOTÃO EDITAR */}
                   <td className={styles['texto-centro']}>
-                    <button className={styles['btn-editar-tabela']} onClick={() => navigate('/usuario/editar/:id')}>
+                    <button className={styles['btn-editar-tabela']} onClick={() => irParaEdicao(usuario.idUsuario)}>
                       <IconeEditar />
                     </button>
                   </td>
 
                   {/* BOTÃO EXCLUIR */}
                   <td className={styles['texto-centro']}>
-                    <button className={styles['btn-excluir-tabela']} onClick={() => handleDelete(user.id)}>
+                    <button className={styles['btn-excluir-tabela']} onClick={() => handleDelete(usuario.idUsuario)}>
                       <IconeLixo />
                     </button>
                   </td>

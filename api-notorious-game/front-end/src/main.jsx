@@ -25,20 +25,28 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/cadastro" element={<CadastroUsuario />} />
         <Route path="/home" element={<Home />} />
         <Route path="/carrinho" element={<CarrinhoCompra />} />
+        
+        {/*Gerenciamento de vendas */}
         <Route path="/vendas" element={<GerenciarVendas />} />
+        <Route path="/vendas/nova" element={<CadastrarVenda />} />
         <Route path="/vendas/editar/:id" element={<EditarVenda />} />
-        <Route path="/cadastro-venda" element={<CadastrarVenda />} />
+
+        {/*Gerenciamento de usuarios */}
         <Route path="/usuarios" element={<GerenciarUsuarios />} />
-        <Route path="/cadastro" element={<CadastroUsuario />} />
-        <Route path="/usuario/editar/:id" element={<EditarUsuarios />} />
-        <Route path="/novo-usuario" element={<NovoUsuario />} />
+        <Route path="/usuarios/novo" element={<NovoUsuario />} />
+        <Route path="/usuarios/editar/:id" element={<EditarUsuarios />} />
+        
+        {/*Gerenciamento de jogos */}
         <Route path="/jogos" element={<GerenciarJogos />} />
         <Route path="/jogos/novo" element={<CadastroJogo />} />
         <Route path="/jogos/editar/:id" element={<EditarJogo />} />
-        <Route path="/categoria/nova" element={<CadastroCategoria />} />
+
+        {/*Gerenciamento de categorias */}
         <Route path="/categorias" element={<GerenciarCategorias />} />
+        <Route path="/categorias/nova" element={<CadastroCategoria />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
