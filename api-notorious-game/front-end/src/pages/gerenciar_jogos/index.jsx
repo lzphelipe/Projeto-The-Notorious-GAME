@@ -8,9 +8,6 @@ import Perfil from '../../assets/do-utilizador.png'
 import Lixo from '../../assets/lixo.png'
 import Lapis from '../../assets/lapis.png'
 
-const IconeEditar = () => <span style={{ fontSize: '20px' }}>✏️</span>
-const IconeLixo = () => <span style={{ fontSize: '20px' }}>🗑️</span>
-
 function GerenciarJogos() {
   const navigate = useNavigate()
   const [jogos, setJogos] = useState([])
@@ -35,15 +32,15 @@ function GerenciarJogos() {
   }, [])
 
   // Função de Excluir
-  async function handleDelete(id) {
+  async function handleDelete(idJogo) {
     if (confirm("Tem certeza que deseja excluir este jogo?")) {
       const token = localStorage.getItem('token');
       try {
-        await api.delete(`/jogos/${id}`, {
+        await api.delete(`/jogos/${idJogo}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         alert("Jogo excluído com sucesso!")
-        carregarJogos() // Recarrega a lista
+        carregarJogos()
       } catch (error) {
         alert("Erro ao excluir jogo.")
       }
@@ -89,37 +86,30 @@ function GerenciarJogos() {
         <div className={styles['black-container']}>
 
           {jogos.map(jogo => (
-            <div key={jogo.idJogo || jogo.id} className={styles['card-cinza']}>
-
-              {/* Imagem (Trata caso venha do back ou seja local) */}
+            <div key={jogo.idJogo} className={styles['card-cinza']}>
               <img 
-                src={jogo.urlImagem || jogo.imagem} 
-                alt={jogo.nomeJogo || jogo.nome} 
+                src={jogo.urlImagem ? jogo.urlImagem : "https://placehold.co/100"} 
+                alt={jogo.nomeJogo} 
                 className={styles['img-jogo']} 
               />
 
               <div className={styles['info-jogo']}>
-                <h3>{jogo.nomeJogo || jogo.nome}</h3>
+                <h3>{jogo.nomeJogo}</h3>
                 <p className={styles['preco']}>
-                    {/* Formata para R$ */}
-                    R$ {Number(jogo.precoJogo || jogo.preco).toFixed(2).replace('.', ',')}
+                    R$ {Number(jogo.precoJogo).toFixed(2).replace('.', ',')}
                 </p>
               </div>
 
               <div className={styles['acoes-jogo']}>
-                  
-                  {/* Botão Editar com Imagem */}
                   <button 
                     className={styles['btn-acao']} 
-                    onClick={() => navigate(`/editar-jogo/${jogo.id || jogo.idJogo}`)}
+                    onClick={() => navigate(`/jogos/editar/${jogo.idJogo}`)}
                   >
                     <img src={Lapis} alt="Editar" className={styles['icone-acao']} />
                   </button>
-                  
-                  {/* Botão Excluir com Imagem */}
                   <button 
                     className={styles['btn-acao']} 
-                    onClick={() => handleDelete(jogo.idJogo || jogo.id)}
+                    onClick={() => handleDelete(jogo.idJogo)}
                   >
                     <img src={Lixo} alt="Excluir" className={styles['icone-acao']} />
                   </button>

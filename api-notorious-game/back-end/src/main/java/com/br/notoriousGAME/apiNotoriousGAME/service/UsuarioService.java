@@ -90,7 +90,7 @@ public class UsuarioService {
 
         // 3. Reseta a senha (se o Admin mandou uma nova)
         if (dadosUsuario.senha() != null && !dadosUsuario.senha().isEmpty()){
-            usuario.setSenha(dadosUsuario.senha());
+            usuario.setSenha(passwordEncoder.encode(dadosUsuario.senha()));
         }
 
         usuarioRepository.save(usuario);
