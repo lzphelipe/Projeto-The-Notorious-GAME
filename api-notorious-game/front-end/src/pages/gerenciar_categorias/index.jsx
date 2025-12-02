@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './style.module.css' 
 import api from '../../services/api'
+import styles from './style.module.css' 
 
 import LogoImg from '../../assets/logo_notorious.png'
 import Perfil from '../../assets/do-utilizador.png'
@@ -78,7 +78,7 @@ function GerenciarCategorias() {
 
             <button 
               className={styles['btn-novo-usuario']} // Reutiliza a classe do botão preto e amarelo
-              onClick={() => navigate('/categoria/nova')}
+              onClick={() => navigate('/categorias/nova')}
             >
               + Nova Categoria
             </button>
@@ -96,24 +96,23 @@ function GerenciarCategorias() {
             </thead>
 
             <tbody>
-              {categorias.filter(cat =>
-                (cat.nome || cat.nomeCategoria || '').toLowerCase().includes(busca.toLowerCase())
-              ).map((cat) => (
-                <tr key={cat.idCategoria || cat.id}>
-                  <td className={styles['texto-centro']}>{cat.idCategoria || cat.id}</td>
+              {categorias.filter(categorias =>
+                (categorias.nomeCategoria).toLowerCase().includes(busca.toLowerCase())
+              ).map((categorias) => (
+                <tr key={categorias.idCategoria}>
+                  <td className={styles['texto-centro']}>{categorias.idCategoria}</td>
                   
-                  <td>{cat.nome || cat.nomeCategoria}</td>
-                  <td>{cat.descricao}</td>
+                  <td>{categorias.nomeCategoria}</td>
+                  <td>{categorias.descricao}</td>
 
-                  {/* Botão EDITAR (Ainda não criamos a tela de editar categoria, mas o link ficaria aqui) */}
                   <td className={styles['texto-centro']}>
-                    <button className={styles['btn-editar-tabela']} onClick={() => navigate('/editar-categoria/:id')}>
+                    <button className={styles['btn-editar-tabela']} onClick={() => navigate(`/categorias/editar/${categorias.idCategoria}`)}>
                       <IconeEditar />
                     </button>
                   </td>
 
                   <td className={styles['texto-centro']}>
-                    <button className={styles['btn-excluir-tabela']} onClick={() => handleDelete(cat.idCategoria || cat.id)}>
+                    <button className={styles['btn-excluir-tabela']} onClick={() => handleDelete(categorias.idCategoria)}>
                       <IconeLixo />
                     </button>
                   </td>

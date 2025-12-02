@@ -13,8 +13,8 @@ function EditarCategoria() {
 
   // 1. ESTADO CORRIGIDO PARA CATEGORIA
   const [form, setForm] = useState({
-    nome: "", // ou nomeCategoria, dependendo do seu DTO
-    descricao: ""
+    nomeCategoria: '',
+    descricao: ''
   });
 
   // 2. BUSCAR DADOS DA CATEGORIA
@@ -26,21 +26,21 @@ function EditarCategoria() {
           headers: { Authorization: `Bearer ${token}` }
         });
         
-        // Ajuste aqui se o seu back retornar 'nomeCategoria'
-        const data = response.data;
+        const categoria = response.data;
+
         setForm({
-          nome: data.nome || data.nomeCategoria || "",
-          descricao: data.descricao || ""
+          nomeCategoria: categoria.nomeCategoria,
+          descricao: categoria.descricao
         });
 
       } catch (error) {
         console.error("Erro ao carregar categoria", error);
         alert("Erro ao carregar dados. Verifique o ID.");
-        navigate('/categorias'); // Volta pra lista certa
+        navigate('/categorias');
       }
     }
     loadCategoria();
-  }, [id, navigate])
+  }, [id])
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -48,7 +48,7 @@ function EditarCategoria() {
 
   // 3. SALVAR ALTERAÇÕES (PUT)
   async function salvarAlteracoes() {
-    if (!form.nome || !form.descricao) {
+    if (!form.nomeCategoria || !form.descricao) {
         alert("Preencha todos os campos!");
         return;
     }
@@ -95,7 +95,7 @@ function EditarCategoria() {
             <label className={styles['label-form']}>Nome da Categoria</label>
             <input
               name="nome"
-              value={form.nome}
+              value={form.nomeCategoria}
               onChange={handleChange}
               placeholder="Ex: RPG"
               className={styles['input-nome']} // Usei o estilo maior para destaque

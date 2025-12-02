@@ -3,20 +3,25 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Login from './pages/login_usuario'
+import CadastroUsuario from './pages/cadastro_usuario'
 import Home from './pages/home'
 import CarrinhoCompra from './pages/carrinho_compra'
+
 import GerenciarVendas from './pages/gerenciar_vendas'
-import EditarVenda from './pages/editar_venda'
 import CadastrarVenda from './pages/cadastro_venda'
+import EditarVenda from './pages/editar_venda'
+
 import GerenciarUsuarios from './pages/gerenciar_usuarios'
-import CadastroUsuario from './pages/cadastro_usuario'
-import EditarUsuarios from './pages/editar_usuario'
 import NovoUsuario from './pages/novo_usuario'
+import EditarUsuarios from './pages/editar_usuario'
+
 import GerenciarJogos from './pages/gerenciar_jogos'
 import CadastroJogo from './pages/cadastro_jogo'
 import EditarJogo from './pages/editar_jogo'
-import CadastroCategoria from './pages/cadastro_categoria'
+
 import GerenciarCategorias from './pages/gerenciar_categorias'
+import CadastroCategoria from './pages/cadastro_categoria'
+import EditarCategoria from './pages/editar_categoria'
 
 import './index.css'
 
@@ -47,6 +52,7 @@ createRoot(document.getElementById('root')).render(
         {/*Gerenciamento de categorias */}
         <Route path="/categorias" element={<GerenciarCategorias />} />
         <Route path="/categorias/nova" element={<CadastroCategoria />} />
+        <Route path="/categorias/editar/:id" element={<EditarCategoria />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

@@ -28,14 +28,12 @@ function CadastrarCategoria() {
     const token = localStorage.getItem('token')
 
     try {
-      // Envia para o Back-end
       await api.post('/categorias', form, {
         headers: { Authorization: `Bearer ${token}` }
       })
 
       alert("Categoria cadastrada com sucesso!")
       
-      // Redireciona de volta para a tela de Gerenciar Jogos
       navigate('/categorias') 
 
     } catch (error) {
@@ -93,7 +91,7 @@ function CadastrarCategoria() {
               <div className={styles['grupo-botoes']}>
                  <button 
                     className={styles['btn-cancelar']}
-                    onClick={() => navigate('/jogos')} // Cancela e volta
+                    onClick={() => navigate('/categorias')}
                  >
                     Cancelar
                  </button>
