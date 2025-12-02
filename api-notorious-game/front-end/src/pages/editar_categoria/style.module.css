@@ -1,0 +1,253 @@
+/* =========================================
+   ESTRUTURA GERAL
+   ========================================= */
+.layout-admin {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* HEADER */
+.top-bar {
+  height: 90px;
+  background-color: #FFBE00;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.logo-area {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  transition: 0.2s;
+}
+
+.logo-img:hover { opacity: 0.7; transform: scale(1.1); }
+
+.top-icons { display: flex; gap: 20px; }
+
+.btn-icone {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icone-img { width: 30px; height: 30px; object-fit: contain; }
+
+/* =========================================
+   CONTAINER PRETO E DIVISÃO (O IMPORTANTE)
+   ========================================= */
+.main-content {
+  width: 100%;
+  /* Garante que o conteúdo fique centralizado na tela cheia */
+  min-height: calc(100vh - 90px); 
+  display: flex;
+  align-items: center;     /* Centraliza Verticalmente */
+  justify-content: center; /* Centraliza Horizontalmente */
+  padding: 40px;
+}
+
+.black-container {
+  background-color: #000;
+  border-radius: 20px;
+  padding: 80px 60px;
+  
+  width: 100%;
+  max-width: 1300px; /* Largura máxima boa para desktop */
+  
+  /* FORÇA A CAIXA A SER GRANDE (Mesmo sem dados) */
+  min-height: 600px; 
+  
+  display: flex;
+  flex-direction: row; /* Lado a lado */
+  align-items: flex-start; /* Alinha no topo para não esticar inputs */
+  justify-content: space-between; /* Espalha as colunas */
+  gap: 60px;
+  color: #fff;
+}
+
+/* Colunas internas */
+.form-esquerda {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-direita {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Títulos */
+.titulo-amarelo {
+  color: #FFBE00;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.titulo-branco {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* Risco Divisor */
+.divisor-vertical {
+  width: 1px;
+  min-height: 500px; /* Altura fixa para o risco aparecer sempre */
+  background-color: #444; /* Cinza um pouco mais visível */
+}
+
+/* =========================================
+   ESTILOS DOS INPUTS
+   ========================================= */
+.label-form {
+  color: #bbb;
+  font-size: 14px;
+  margin-bottom: -10px;
+  margin-left: 15px;
+}
+
+.input-select {
+  height: 55px;
+  border-radius: 15px;
+  border: none;
+  background-color: #d9d9d9;
+  padding-left: 20px;
+  font-size: 16px;
+  color: #000;
+  outline: none;
+  width: 100%;
+}
+
+/* LISTA DE JOGOS (DIREITA) */
+.add-jogo-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  width: 100%;
+}
+
+.input-mini {
+  height: 50px;
+  border-radius: 15px;
+  border: none;
+  background-color: #fff;
+  padding-left: 20px;
+  font-size: 16px;
+  color: #000;
+  width: 70%; /* Ocupa a maior parte */
+}
+
+.btn-add-mini {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #FFBE00;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5px; /* Ajuste visual do + */
+}
+
+.lista-ids-jogos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  min-height: 100px; /* Garante espaço visual mesmo vazia */
+}
+
+.chip-jogo {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  border: 1px solid #555;
+}
+
+.btn-remove-mini {
+  background: transparent;
+  border: none;
+  color: #ff5555;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* =========================================
+   BOTÕES DE AÇÃO
+   ========================================= */
+.grupo-botoes {
+  display: flex;
+  gap: 20px;
+  margin-top: 50px; /* Empurra pra baixo */
+}
+
+.btn-cancelar {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-salvar {
+  background-color: #FFBE00;
+  color: #000;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancelar:hover, .btn-salvar:hover { opacity: 0.8; transform: scale(1.05); }
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .black-container {
+    flex-direction: column;
+    height: auto;
+    padding: 40px;
+  }
+  .form-esquerda, .form-direita {
+    width: 100%;
+  }
+  .divisor-vertical {
+    display: none;
+  }
+}

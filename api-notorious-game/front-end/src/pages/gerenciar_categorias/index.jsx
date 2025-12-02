@@ -107,7 +107,7 @@ function GerenciarCategorias() {
 
                   {/* Botão EDITAR (Ainda não criamos a tela de editar categoria, mas o link ficaria aqui) */}
                   <td className={styles['texto-centro']}>
-                    <button className={styles['btn-editar-tabela']} onClick={() => alert('Em breve')}>
+                    <button className={styles['btn-editar-tabela']} onClick={() => navigate('/editar-categoria/:id')}>
                       <IconeEditar />
                     </button>
                   </td>
